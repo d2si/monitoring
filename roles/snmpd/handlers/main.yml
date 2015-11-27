@@ -1,6 +1,6 @@
 ---
 
-- name: restart SNMP
+- name: restart snmpd
   service: name={{ snmpd_svc_name }} state=restarted
 
 - name: restart icinga2
