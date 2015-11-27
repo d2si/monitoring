@@ -1,7 +1,7 @@
 ---
 
-- name: reload snmpd
-  service: name={{ snmpd_svc_name }} state=reloaded
+- name: restart snmpd
+  service: name={{ snmpd_svc_name }} state=restarted
 
 - name: reload icinga2
   service: name={{ snmpd_ic2_svc_name }} state=reloaded

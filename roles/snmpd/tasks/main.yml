@@ -25,14 +25,14 @@
     - check-cpu.pl
     - check-tmpfs.pl
     - check-file-descriptors.pl
-  notify: reload snmpd
+  notify: restart snmpd
   tags: cfg
 
 - name: Configure SNMP
   template:
     src: snmpd.conf.j2
     dest: "{{ snmpd_cfg_path }}"
-  notify: reload snmpd
+  notify: restart snmpd
   tags: cfg
 
 - name: Enable the SNMP service
