@@ -48,7 +48,7 @@
     dest: "{{ snmpd_ic2_cfg_dirpath }}/services-snmp.conf"
   delegate_to: "{{ item }}"
   with_items: groups.MonitoringServers
-  notify: restart icinga2
+  notify: reload icinga2
   tags: cfg
 
 - name: Add host configuration to the Icinga server(s)
@@ -57,5 +57,5 @@
     dest: "{{ snmpd_ic2_cfg_dirpath }}/host-{{ ansible_hostname }}.conf"
   delegate_to: "{{ item }}"
   with_items: groups.MonitoringServers
-  notify: restart icinga2
+  notify: reload icinga2
   tags: cfg
