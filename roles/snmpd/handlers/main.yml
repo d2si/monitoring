@@ -5,4 +5,5 @@
 
 - name: restart icinga2
   service: name={{ snmpd_ic2_svc_name }} state=restarted
-  delegate_to: "{{ snmpd_ic2_cfg_hostname }}"
+  delegate_to: "{{ item }}"
+  with_items: groups.MonitoringServers
