@@ -1,0 +1,8 @@
+---
+
+- name: restart SNMP
+  service: name={{ snmpd_svc_name }} state=restarted
+
+- name: restart icinga2
+  service: name={{ snmpd_ic2_svc_name }} state=restarted
+  delegate_to: "{{ snmpd_ic2_cfg_hostname }}"
