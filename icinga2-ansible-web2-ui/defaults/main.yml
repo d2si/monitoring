@@ -1,0 +1,29 @@
+---
+# defaults file for icinga2-ansible-web2-ui
+
+icinga2_web2_db: "icinga"
+icinga2_web2_db_pass: "icinga"
+icinga2_web2_db_user: "icinga"
+icinga2_web_mysql_schema_rh_6: "/usr/share/icinga2-ido-mysql/schema/mysql.sql"
+icinga2_web_mysql_schema_debian: "/usr/share/icinga2-ido-mysql/schema/mysql.sql"
+icinga2_ido_mysql_conf: "/etc/icinga2/features-available/ido-mysql.conf"
+icinga2_ido_mysql_configuration: "none"
+enablerepo: "base"
+
+icinga2_web2_users_db: "icingausers"
+icinga2_web2_users_db_pass: "icingaweb"
+icinga2_web2_users_db_user: "icingaweb"
+icinga2_web_users_mysql_schema_debian: "/usr/share/icingaweb2/etc/schema/mysql.schema.sql"
+
+icinga2_web2_admin: "admin"
+icinga2_web2_admin_pass: "admin"
+
+icinga2_web2_ui_rpm:
+ - { package: "icingaweb2" }
+ - { package: "icingacli" }
+
+icinga2_web2_ui_deb:
+ - { package: "icingaweb2" }
+
+php_ini_file: "/etc/php5/apache2/php.ini"
+timezone: "Europe/Paris"
