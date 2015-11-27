@@ -51,4 +51,5 @@
         - {name: "swap-free", oid: "1.3.6.1.4.1.2021.4.4.0" }
         - {name: "mem-total", oid: "1.3.6.1.4.1.2021.4.5.0" }
         - {name: "mem-free", oid: "1.3.6.1.4.1.2021.4.6.0" }
+        - {name: "fd-count", oid: "1.3.6.1.4.1.2021.42001.45.0", warn: "1024", crit: "4096" }
       tags: snmpd
