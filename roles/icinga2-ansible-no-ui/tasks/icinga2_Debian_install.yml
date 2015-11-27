@@ -29,6 +29,14 @@
        install_recommends=no
   with_items: icinga2_pkg
 
+- name:  Activate command feature
+  command: "icinga2 feature enable command"
+  register: features_result
+  changed_when: "'for these changes to take effect' in features_result.stdout"
+  notify:
+   - restart icinga2 
+
+
 - name: Start Icinga2
   service: name=icinga2
            state=started
