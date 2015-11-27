@@ -7,10 +7,9 @@ rocommunity	{{ snmpd_cfg_rocommunity }}
 agentaddress	udp:{{ snmpd_cfg_agentaddress }}:161
 
 # CPU
-#pass .1.3.6.1.4.1.2021.42001.33 /usr/local/bin/scripts/check-cpu.pl
+pass .1.3.6.1.4.1.2021.42001.33 /usr/local/bin/scripts/check-cpu.pl
 
 # TMPFS
-#pass .1.3.6.1.4.1.2021.42001.42.0 /usr/local/bin/scripts/check-tmpfs.pl
+pass .1.3.6.1.4.1.2021.42001.42.0 /usr/local/bin/scripts/check-tmpfs.pl
 
-#pass .1.3.6.1.4.1.2021.42001.45.0
-#/usr/local/bin/scripts/check-file-descriptors.pl
+pass .1.3.6.1.4.1.2021.42001.45.0 /usr/local/bin/scripts/check-file-descriptors.pl

@@ -16,11 +16,23 @@
   package: name={{ snmpd_pkg_name }} state=latest
   tags: pkg
 
+- name: Create the SNMP scripts directory
+  file: path=/usr/local/bin/scripts state=directory owner=0 group=0 mode=0755
+
+- name: Install SNMP scripts
+  copy: src=files/{{ item }} dest=/usr/local/bin/scripts/{{ item }} owner=0 group=0 mode=0555
+  with_items:
+    - check-cpu.pl
+    - check-tmpfs.pl
+    - check-file-descriptors.pl
+  notify: restart snmpd
+  tags: cfg
+
 - name: Configure SNMP
   template:
     src: snmpd.conf.j2
     dest: "{{ snmpd_cfg_path }}"
-  notify: restart SNMP
+  notify: restart snmpd
   tags: cfg
 
 - name: Enable the SNMP service
@@ -36,7 +48,7 @@
     dest: "{{ snmpd_ic2_cfg_dirpath }}/services-snmp.conf"
   delegate_to: "{{ item }}"
   with_items: groups.MonitoringServers
-  notify: restart icinga2
+  notify: reload icinga2
   tags: cfg
 
 - name: Add host configuration to the Icinga server(s)
@@ -45,5 +57,5 @@
     dest: "{{ snmpd_ic2_cfg_dirpath }}/host-{{ ansible_hostname }}.conf"
   delegate_to: "{{ item }}"
   with_items: groups.MonitoringServers
-  notify: restart icinga2
+  notify: reload icinga2
   tags: cfg

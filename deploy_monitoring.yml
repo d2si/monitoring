@@ -42,12 +42,11 @@
       snmpd_cfg_syscontact: report@oxalide.com
       snmpd_ic2_checks:
         - {name: "uptime", oid: "1.3.6.1.2.1.1.3.0" }
-        - {name: "cpu-load-1m", oid: "1.3.6.1.4.1.2021.10.1.3.1", warn: "{{ ansible_processor_vcpus * 2 }}", crit: "{{ ansible_processor_vcpus * 4 }}" }
-        - {name: "cpu-load-5m", oid: "1.3.6.1.4.1.2021.10.1.3.2", warn: "{{ ansible_processor_vcpus }}", crit: "{{ ansible_processor_vcpus * 2 }}" }
-        - {name: "cpu-load-15m", oid: "1.3.6.1.4.1.2021.10.1.3.3", warn: "{{ ansible_processor_vcpus * 0.8 }}", crit: "{{ ansible_processor_vcpus }}" }
+        - {name: "cpu-load-1m", oid: "1.3.6.1.4.1.2021.10.1.3.1", warn: "{{ ansible_processor_vcpus * 2 + 1 }}", crit: "{{ ansible_processor_vcpus * 3 }}" }
+        - {name: "cpu-load-5m", oid: "1.3.6.1.4.1.2021.10.1.3.2", warn: "{{ ansible_processor_vcpus + 1 }}", crit: "{{ ansible_processor_vcpus * 2  + 1 }}" }
+        - {name: "cpu-load-15m", oid: "1.3.6.1.4.1.2021.10.1.3.3", warn: "{{ ansible_processor_vcpus }}", crit: "{{ ansible_processor_vcpus + 1 }}" }
         - {name: "cpu-time-%user", oid: "1.3.6.1.4.1.2021.11.9.0", warn: "95", crit: "99" }
         - {name: "cpu-time-%system", oid: "1.3.6.1.4.1.2021.11.10.0", warn: "95", crit: "99" }
-        - {name: "cpu-time-%idle", oid: "1.3.6.1.4.1.2021.11.11.0", warn: "5", crit: "1" }
         - {name: "swap-total", oid: "1.3.6.1.4.1.2021.4.3.0" }
         - {name: "swap-free", oid: "1.3.6.1.4.1.2021.4.4.0" }
         - {name: "mem-total", oid: "1.3.6.1.4.1.2021.4.5.0" }
