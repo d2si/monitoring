@@ -3,7 +3,3 @@
 
 [MonitoringAgents]
 52.18.79.56
-
-[all:vars]
-ansible_user=admin
-ansible_become=yes
