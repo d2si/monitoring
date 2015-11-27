@@ -32,8 +32,8 @@
 
 - name: Add SNMP service configuration to the Icinga server
   template:
-    src: ic2-service-snmp.conf.j2
-    dest: "{{ snmpd_ic2_cfg_dirpath }}/service-snmp.conf"
+    src: ic2-services-snmp.conf.j2
+    dest: "{{ snmpd_ic2_cfg_dirpath }}/services-snmp.conf"
   delegate_to: "{{ snmpd_ic2_cfg_hostname }}"
   notify: restart icinga2
   tags: cfg
