@@ -4,9 +4,6 @@ syslocation	{{ snmpd_cfg_syslocation }}
 syscontact	{{ snmpd_cfg_syscontact }}
 sysservices	72
 rocommunity	{{ snmpd_cfg_rocommunity }}
-{% if snmpd_cfg_agentuser is defined %}
-agentuser	{{ snmpd_cfg_agentuser }}
-{% endif %}
 agentaddress	udp:{{ snmpd_cfg_agentaddress }}:161
 
 # CPU

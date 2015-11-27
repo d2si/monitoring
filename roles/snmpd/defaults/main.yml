@@ -2,7 +2,6 @@
 
 snmpd_cfg_path: "{{ osvar_cfg_path }}"
 snmpd_cfg_agentaddress: "{{ ansible_default_ipv4.address }}"
-snmpd_cfg_agentuser: ""
 snmpd_cfg_rocommunity: public
 snmpd_cfg_syslocation: Sitting on the Dock of the Bay
 snmpd_cfg_syscontact: Me <me@example.org>
