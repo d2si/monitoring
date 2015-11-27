@@ -1,0 +1,9 @@
+[tag_Role_MonitoringServer]
+
+[tag_Role_MonitoredServer]
+
+[MonitoringServers:children]
+tag_Role_MonitoringServer
+
+[MonitoringAgents:children]
+tag_Role_MonitoredServer
