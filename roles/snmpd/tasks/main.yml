@@ -1,0 +1,47 @@
+---
+
+- name: Get OS-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+   - "{{ ansible_distribution }}.yml"
+   - "{{ ansible_os_family }}.yml"
+  tags: always
+
+- name: Update apt-get cache
+  apt: update_cache=yes cache_valid_time=86400
+  when: "ansible_os_family == 'Debian'"
+  tags: pkg
+
+- name: Install the SNMP package
+  package: name={{ snmpd_pkg_name }} state=latest
+  tags: pkg
+
+- name: Configure SNMP
+  template:
+    src: snmpd.conf.j2
+    dest: "{{ snmpd_cfg_path }}"
+  notify: restart SNMP
+  tags: cfg
+
+- name: Enable the SNMP service
+  service:
+    name: "{{ snmpd_svc_name }}"
+    state: "{{ snmpd_svc_state }}"
+    enabled: "{{ snmpd_svc_enabled }}"
+  tags: svc
+
+- name: Add SNMP service configuration to the Icinga server
+  template:
+    src: ic2-services-snmp.conf.j2
+    dest: "{{ snmpd_ic2_cfg_dirpath }}/services-snmp.conf"
+  delegate_to: "{{ snmpd_ic2_cfg_hostname }}"
+  notify: restart icinga2
+  tags: cfg
+
+- name: Add host configuration to the Icinga server
+  template:
+    src: ic2-host.conf.j2
+    dest: "{{ snmpd_ic2_cfg_dirpath }}/host-{{ ansible_hostname }}.conf"
+  delegate_to: "{{ snmpd_ic2_cfg_hostname }}"
+  notify: restart icinga2
+  tags: cfg

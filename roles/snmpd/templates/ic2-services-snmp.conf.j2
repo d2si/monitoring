@@ -1,0 +1,11 @@
+# {{ ansible_managed }}
+
+{% for check in snmpd_ic2_checks %}
+apply Service "{{ check.name }}" {
+  import "generic-service"
+  check_command = "snmp"
+  vars.snmp_oid = "{{ check.oid }}"
+  vars.snmp_miblist = "DISMAN-EVENT-MIB"
+  assign where host.vars.snmp_community != ""
+}
+{% endfor %}
