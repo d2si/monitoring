@@ -1,4 +1,8 @@
 - hosts: MonitoringServers
+  tasks:
+    - name: Install snmp
+      apt:  name=snmp
+            state=latest
   roles:
 
    - role: icinga2-ansible-no-ui
@@ -14,6 +18,7 @@
           "-H", "$address$",
               "-c", "$remote_nrpe_command$",
      tags: icinga2-no-ui
+
 
    - role: icinga2-ansible-web2-ui
      icinga2_web2_db_pass: "CHANGEME"
