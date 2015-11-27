@@ -25,7 +25,9 @@
         instance_type: t2.micro
         image: ami-e31a6594
         wait: no
-        group: epiconcept
+        groups:
+            - epiconcept
+            - epiconcept-snmp
         count: 3
         vpc_subnet_id: subnet-68a77031
         assign_public_ip: yes
