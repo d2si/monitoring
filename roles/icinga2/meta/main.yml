@@ -1,7 +1,7 @@
 ---
 
 galaxy_info:
-  author: D2SI, adapted from Icinga2 official roles
+  author: D2SI, inspired from Icinga2 official roles
   company: EpiConcept
   description: Install and configure Icinga2
   license: GPLv2
