@@ -19,4 +19,13 @@ ic2_mysqld_db_pass: icinga
 ic2_mysqld_db_user: icinga
 ic2_mysqld_schema: "{{ osvar_mysqld_schema }}"
 ic2_mysqld_ido_cfg: "{{ osvar_mysqld_ido_cfg }}"
-ic2_mysqld_ido_cfg_content: none
+
+ic2_mysqld_ido_cfg_content: |
+  library "db_ido_mysql"
+
+  object IdoMysqlConnection "ido-mysql" {
+    user = "{{ icinga2_web2_db_user }}"
+    password = "{{ icinga2_web2_db_pass }}"
+    host = "localhost"
+    database = "{{ icinga2_web2_db }}"
+  }
