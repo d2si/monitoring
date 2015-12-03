@@ -13,7 +13,7 @@ icweb2_mysqld_svc_name: "{{ osvar_mysqld_svc_name }}"
 icweb2_httpd_user: "{{ osvar_httpd_user }}"
 
 icweb2_admin_user: "admin"
-icweb2_admin_pass: "admin"
+icweb2_admin_pass: "CHANGEME"
 
 icweb2_pkg_name: "{{ osvar_pkg_name }}"
 

@@ -6,7 +6,6 @@
 
 
     - role: icinga2-web2
-      icinga2_web2_db_pass: "CHANGEME"
       tags: icinga2-web2
 
 - hosts: MonitoringAgents
