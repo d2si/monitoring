@@ -1,39 +1,37 @@
 - hosts: MonitoringServers
-  tasks:
-    - name: Install snmp
-      apt:  name=snmp
-            state=latest
+
   roles:
 
-   - role: icinga2-ansible-no-ui
-     icinga2_conf_global: |
-       include "constants.conf"
-       include "zones.conf"
-       include <itl>
-       include <plugins>
-       include "features-enabled/*.conf"
-       include_recursive "conf.d"
-     check_commands:
-       check_nrpe: |
+    - role: icinga2
+      icinga2_conf_global: |
+        include "constants.conf"
+        include "zones.conf"
+        include <itl>
+        include <plugins>
+        include "features-enabled/*.conf"
+        include_recursive "conf.d"
+      check_commands:
+        check_nrpe: |
           "-H", "$address$",
-              "-c", "$remote_nrpe_command$",
-     tags: icinga2-no-ui
+          "-c", "$remote_nrpe_command$",
+      tags: icinga2
 
 
-   - role: icinga2-ansible-web2-ui
-     icinga2_web2_db_pass: "CHANGEME"
-     icinga2_ido_mysql_configuration: |
-       library "db_ido_mysql"
+    - role: icinga2-web2
+      icinga2_web2_db_pass: "CHANGEME"
+      icinga2_ido_mysql_configuration: |
+      library "db_ido_mysql"
 
-       object IdoMysqlConnection "ido-mysql" {
-         user = "{{ icinga2_web2_db_user }}"
-         password = "{{ icinga2_web2_db_pass }}"
-         host = "localhost"
-         database = "{{ icinga2_web2_db }}"
-       }
-     tags: icinga2-ansible-web2-ui
+      object IdoMysqlConnection "ido-mysql" {
+        user = "{{ icinga2_web2_db_user }}"
+        password = "{{ icinga2_web2_db_pass }}"
+        host = "localhost"
+        database = "{{ icinga2_web2_db }}"
+      }
+      tags: icinga2-web2
 
 - hosts: MonitoringAgents
+
   roles:
     - role: snmpd
       snmpd_cfg_rocommunity: oxalide
