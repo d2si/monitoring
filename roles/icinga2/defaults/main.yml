@@ -24,8 +24,8 @@ ic2_mysqld_ido_cfg_content: |
   library "db_ido_mysql"
 
   object IdoMysqlConnection "ido-mysql" {
-    user = "{{ icinga2_web2_db_user }}"
-    password = "{{ icinga2_web2_db_pass }}"
+    user = "{{ ic2_mysqld_db_user }}"
+    password = "{{ ic2_mysqld_db_pass }}"
     host = "localhost"
-    database = "{{ icinga2_web2_db }}"
+    database = "{{ ic2_mysqld_db }}"
   }
