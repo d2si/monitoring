@@ -25,7 +25,7 @@
   tags: svc
 
 - name: Create icinga2 Database
-  mysql_db: name={{ ic2_mysqld_db }} state=present
+  mysql_db: name={{ ic2_mysqld_db_name }} state=present
             login_host={{ ic2_mysqld_login_host }}
             login_user={{ ic2_mysqld_login_user }}
             login_password={{ ic2_mysqld_login_pass }}
@@ -36,14 +36,14 @@
               password={{ ic2_mysqld_db_pass }}
               update_password=always
               state=present
-              priv="{{ ic2_mysqld_db }}.*:GRANT,INSERT,SELECT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
+              priv="{{ ic2_mysqld_db_name }}.*:GRANT,INSERT,SELECT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
               login_host={{ ic2_mysqld_login_host }}
               login_user={{ ic2_mysqld_login_user }}
               login_password={{ ic2_mysqld_login_pass }}
   tags: cfg
 
 - name: Import the IDO Schema into icinga database - (only once)
-  mysql_db: name={{ ic2_mysqld_db }}
+  mysql_db: name={{ ic2_mysqld_db_name }}
             state=import
             target={{ ic2_mysqld_schema }}
             login_host={{ ic2_mysqld_login_host }}

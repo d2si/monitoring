@@ -16,13 +16,24 @@
             login_host={{ icweb2_mysqld_login_host }}
             login_user={{ icweb2_mysqld_login_user }}
             login_password={{ icweb2_mysqld_login_pass }}
+  register: iicweb2_mysqld_db_installed
+  tags: cfg
+
+- name: Import the Icingaweb2 schema into the database - (only once)
+  mysql_db: name={{ icweb2_mysqld_db_name }}
+            state=import
+            target={{ icweb2_mysqld_schema }}
+            login_host={{ icweb2_mysqld_login_host }}
+            login_user={{ icweb2_mysqld_login_user }}
+            login_password={{ icweb2_mysqld_login_pass }}
+  when: icweb2_mysqld_db_installed.changed == true
   tags: cfg
 
 - name: Create Icinga Users Database User and configure Grants
   mysql_user: name={{ icweb2_mysqld_db_user }}
               password={{ icweb2_mysqld_db_pass }}
               state=present
-              priv="{{ icweb2_mysqld_db_user }}.*:SELECT,INSERT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
+              priv="{{ ic2_mysqld_db_name }}.*:SELECT,INSERT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
               login_host={{ icweb2_mysqld_login_host }}
               login_user={{ icweb2_mysqld_login_user }}
               login_password={{ icweb2_mysqld_login_pass }}
