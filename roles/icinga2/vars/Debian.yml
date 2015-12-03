@@ -13,6 +13,7 @@ osvar_pkgs_name:
   - icinga2
   - nagios-plugins
   - snmp
+  - mailutils
 
 osvar_svc_name: icinga2
 
