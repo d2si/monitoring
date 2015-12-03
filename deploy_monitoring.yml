@@ -5,8 +5,8 @@
       tags: icinga2
 
 
-    - role: icinga2-web2
-      tags: icinga2-web2
+    - role: icingaweb2
+      tags: icingaweb2
 
 - hosts: MonitoringAgents
   roles:
