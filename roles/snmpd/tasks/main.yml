@@ -9,7 +9,7 @@
 
 - name: Update apt-get cache
   apt: update_cache=yes cache_valid_time=86400
-  when: "ansible_os_family == 'Debian'"
+  when: ansible_os_family == 'Debian'
   tags: pkg
 
 - name: Install the SNMP package
