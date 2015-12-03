@@ -5,7 +5,7 @@
   tags: always
 
 - name: Get Icinga2 package key
-  apt_key: url={{ ic2_key }} state=present
+  apt_key: url={{ ic2_pkg_key }} state=present
   tags: pkg
 
 - name: Get Debmon package Key

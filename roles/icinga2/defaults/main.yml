@@ -4,8 +4,7 @@ ic2_deb_repos: [ "{{ osvar_deb_repos }}" ]
 ic2_debmon_apt_key: "{{ osvar_debmon_apt_key }}"
 ic2_debmon_apt_repository: "{{ osvar_debmon_apt_repository }}"
 
-ic2_key: http://packages.icinga.org/icinga.key
-
+ic2_pkg_key: http://packages.icinga.org/icinga.key
 ic2_pkgs_name: [ "{{ osvar_pkgs_name }}" ]
 
 ic2_cfg_path: "{{ osvar_cfg_path }}"

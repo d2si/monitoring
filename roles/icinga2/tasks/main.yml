@@ -31,7 +31,7 @@
   tags: cfg
 
 - name: Copy Check Commands Configuration
-  template: src=icinga2_check_commands.j2
+  template: src=check_commands.conf.j2
             dest={{ ic2_cfgd_path }}/check_commands.conf
             owner=0
             group=0
