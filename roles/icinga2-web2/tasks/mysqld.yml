@@ -22,12 +22,12 @@
   mysql_user: name={{ icweb2_mysqld_db_user }}
               password={{ icweb2_mysqld_db_pass }}
               state=present
-              priv="{{ icweb2_mysqld_db_name }}.*:SELECT,INSERT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
+              priv="{{ icweb2_mysqld_db_user }}.*:SELECT,INSERT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
               login_host={{ icweb2_mysqld_login_host }}
               login_user={{ icweb2_mysqld_login_user }}
               login_password={{ icweb2_mysqld_login_pass }}
   tags: cfg
 
 - name: Create initial admin user
-  shell: "mysql {{ icweb2_admin_user }} -e \"REPLACE INTO icingaweb_user (name, active, password_hash) VALUES ('{{ icweb2_admin_user }}', 1, '$(openssl passwd -1 {{ icweb2_admin_pass }})')\""
+  shell: "mysql {{ icweb2_mysqld_db_name }} -e \"REPLACE INTO icingaweb_user (name, active, password_hash) VALUES ('{{ icweb2_admin_user }}', 1, '$(openssl passwd -1 {{ icweb2_admin_pass }})')\""
 
