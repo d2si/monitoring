@@ -9,8 +9,8 @@
 
 - name:  Activate Icinga2 command feature
   command: "icinga2 feature enable command"
-  register: features_result
-  changed_when: "'for these changes to take effect' in features_result.stdout"
+  register: ic2_feature_result
+  changed_when: "'for these changes to take effect' in ic2_feature_result.stdout"
   notify: restart icinga2
   tags: cfg
 
