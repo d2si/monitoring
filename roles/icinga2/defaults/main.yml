@@ -14,6 +14,9 @@ ic2_svc_name: "{{ osvar_svc_name }}"
 ic2_svc_enabled: yes
 ic2_svc_state: started
 
+ic2_mysqld_login_host: 127.0.0.1
+ic2_mysqld_login_user: root
+ic2_mysqld_login_password: ""
 ic2_mysqld_db: icinga
 ic2_mysqld_db_pass: icinga
 ic2_mysqld_db_user: icinga
@@ -43,7 +46,7 @@ ic2_mysqld_ido_cfg_content: |
   object IdoMysqlConnection "ido-mysql" {
     user = "{{ ic2_mysqld_db_user }}"
     password = "{{ ic2_mysqld_db_pass }}"
-    host = "localhost"
+    host = "{{ ic2_mysqld_login_host }}"
     database = "{{ ic2_mysqld_db }}"
   }
 
