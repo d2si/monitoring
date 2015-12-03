@@ -33,7 +33,7 @@
   mysql_user: name={{ icweb2_mysqld_db_user }}
               password={{ icweb2_mysqld_db_pass }}
               state=present
-              priv="{{ ic2_mysqld_db_name }}.*:SELECT,INSERT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
+              priv="{{ icweb2_mysqld_db_name }}.*:SELECT,INSERT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
               login_host={{ icweb2_mysqld_login_host }}
               login_user={{ icweb2_mysqld_login_user }}
               login_password={{ icweb2_mysqld_login_pass }}
