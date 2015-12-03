@@ -1,16 +1,16 @@
 ---
 
-icinga2_deb_repos: [ "{{ osvar_deb_repos }}" ]
-icinga2_debmon_apt_key: "{{ osvar_debmon_apt_key }}"
-icinga2_debmon_apt_repository: "{{ osvar_debmon_apt_repository }}"
+ic2_deb_repos: [ "{{ osvar_deb_repos }}" ]
+ic2_debmon_apt_key: "{{ osvar_debmon_apt_key }}"
+ic2_debmon_apt_repository: "{{ osvar_debmon_apt_repository }}"
 
-icinga2_key: http://packages.icinga.org/icinga.key
+ic2_key: http://packages.icinga.org/icinga.key
 
-icinga2_pkgs_name: [ "{{ osvar_pkgs_name }}" ]
+ic2_pkgs_name: [ "{{ osvar_pkgs_name }}" ]
 
-icinga2_cfg_path: "{{ osvar_cfg_path }}"
-icinga2_cfgd_path: "{{ osvar_cfgd_path }}"
+ic2_cfg_path: "{{ osvar_cfg_path }}"
+ic2_cfgd_path: "{{ osvar_cfgd_path }}"
 
-icinga2_svc_name: "{{ osvar_svc_name }}"
-icinga2_svc_enabled: yes
-icinga2_svc_state: started
+ic2_svc_name: "{{ osvar_svc_name }}"
+ic2_svc_enabled: yes
+ic2_svc_state: started

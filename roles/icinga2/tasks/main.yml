@@ -4,7 +4,7 @@
 
 - name: Install the Icinga2 packages
   package: name={{ item }} state=latest
-  with_items: "{{ icinga2_pkgs_name }}"
+  with_items: "{{ ic2_pkgs_name }}"
   tags: pkg
 
 - name:  Activate Icinga2 command feature
@@ -16,14 +16,14 @@
 
 - name: Enable the Icinga2 service
   service:
-    name: "{{ icinga2_svc_name }}"
-    state: "{{ icinga2_svc_state }}"
-    enabled: "{{ icinga2_svc_enabled }}"
+    name: "{{ ic2_svc_name }}"
+    state: "{{ ic2_svc_state }}"
+    enabled: "{{ ic2_svc_enabled }}"
   tags: svc
 
 - name: Copy Main Icinga2 Configuration
   template: src=icinga2.conf.j2
-            dest={{ icinga2_cfg_path }}
+            dest={{ ic2_cfg_path }}
             owner=0
             group=0
             mode=0644
@@ -32,7 +32,7 @@
 
 - name: Copy Check Commands Configuration
   template: src=icinga2_check_commands.j2
-            dest={{ icinga2_cfgd_path }}/check_commands.conf
+            dest={{ ic2_cfgd_path }}/check_commands.conf
             owner=0
             group=0
             mode=0644
