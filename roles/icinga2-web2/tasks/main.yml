@@ -1,84 +1,27 @@
 ---
-- name: Install mysql server
-  apt: name={{ item }}
-       state=latest
-       update_cache=yes
-       cache_valid_time=30
-  with_items:
-    - mysql-server
-    - python-mysqldb
 
-- name: Start the MySQL service
-  service: name=mysql
-           state=started
-           enabled=true
+- name: Install Icingaweb2
+  package: name={{ icweb2_pkg_name }} state=latest
+  tags: pkg
 
-- name: Create Icinga Database User and configure Grants
-  mysql_user: name={{ icinga2_web2_db_user }}
-              password={{ icinga2_web2_db_pass }}
-              state=present
-              priv="{{ icinga2_web2_db }}.*:GRANT,INSERT,SELECT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
-
-- name: Import the IDO Schema on Icinga Web Database - (only once)
-  mysql_db: name={{ icinga2_web2_db }}
-            state=import
-            target={{ icinga2_web_mysql_schema_debian }}
-  when: icinga_web2_db.changed == true
-
-- name: Install Icinga Web2 on Debian family
-  apt: name={{ item.package }}
-       state=latest
-  with_items: icinga2_web2_ui_deb
-  tags: icinga2-ansible-web2-ui-install
-
-- name: Icinga Web2 Installation finished
-  debug: msg="Now generate a token with 'icingacli setup token create' and go at http://IP//icingaweb2/setup to continue the installation"
-  tags: icinga2-ansible-web2-ui-install
-
-- name: Create a Database for Icinga2 users
-  mysql_db: name={{ icinga2_web2_users_db }}
-            state=present
-  register: icinga_web2_users_db
-
-- name: Create Icinga Users Database User and configure Grants
-  mysql_user: name={{ icinga2_web2_users_db_user }}
-              password={{ icinga2_web2_users_db_pass }}
-              state=present
-              priv="{{ icinga2_web2_users_db }}.*:SELECT,INSERT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
-
-- name: Import the IDO Schema on Icinga Web Database - (only once)
-  mysql_db: name={{ icinga2_web2_users_db }}
-            state=import
-            target={{ icinga2_web_users_mysql_schema_debian }}
-  when: icinga_web2_users_db.changed == true
-
-- name: Create initial admin user
-  shell: "mysql {{ icinga2_web2_users_db }} -e \"REPLACE INTO icingaweb_user (name, active, password_hash) VALUES ('{{ icinga2_web2_admin }}', 1, '$(openssl passwd -1 {{ icinga2_web2_admin_pass }})')\""
-
-- name: Add www-data to group icingaweb2
-  user: name=www-data
-        groups=icingaweb2
-        append=yes
-  notify:
-    - restart apache2
+- name: Add web server user to group icingaweb2
+  user: name={{ icweb2_httpd_user}} groups=icingaweb2 append=yes
+  notify: restart apache2
 
 - name: Set php.ini timezone
-  lineinfile:   dest={{ php_ini_file }}
-                state=present
-                regexp='date.timezone'
-                line='date.timezone = {{ timezone}}'
+  lineinfile:  dest={{ icweb2_php_ini_path }}
+               state=present
+               regexp='date.timezone'
+               line='date.timezone = {{ icweb2_php_ini_timezone }}'
 
-- name: Assures /etc/icingaweb2/modules/monitoring dir exists
-  file: path={{ item }} state=directory
-        group=icingaweb2
+- name: Insure /etc/icingaweb2 sub-directories exist
+  file: path={{ item }} state=directory group=icingaweb2
   with_items:
     - /etc/icingaweb2/modules/monitoring
     - /etc/icingaweb2/enabledModules
 
 - name: Configure Icinga2 Web
-  template: src={{ item.template }}
-            dest={{ item.directory }}/{{ item.file }}
-            group=icingaweb2
+  template: src={{ item.template }} dest={{ item.directory }}/{{ item.file }} group=icingaweb2
   with_items:
     - { directory: "/etc/icingaweb2", file: "resources.ini", template: "resources.ini.j2"}
     - { directory: "/etc/icingaweb2", file: "config.ini", template: "config.ini.j2"}
@@ -88,5 +31,5 @@
     - { directory: "/etc/icingaweb2/modules/monitoring", file: "backends.ini", template: "monitoring_backends.ini.j2"}
     - { directory: "/etc/icingaweb2/modules/monitoring", file: "commandtransports.ini", template: "monitoring_commandtransports.ini.j2"}
 
-- name: Enable Monitoring module
+- name: Enable the monitoring module
   file: src=/usr/share/icingaweb2/modules/monitoring dest=/etc/icingaweb2/enabledModules/monitoring state=link
