@@ -1,5 +1,6 @@
 ---
 
+- include: "{{ ansible_os_family }}.yml"
 - include: mysqld.yml
 
 - name: Install Icingaweb2
