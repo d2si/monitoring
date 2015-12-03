@@ -28,8 +28,9 @@ ic2_cfg_content: |
   include "features-enabled/*.conf"
   include_recursive "conf.d"
 
-ic2_cfg_check_commands_content: |
-  check_nrpe: "-H", "$address$", "-c", "$remote_nrpe_command$",
+ic2_cfg_check_commands_content:
+  check_nrpe: |
+    "-H", "$address$", "-c", "$remote_nrpe_command$",
 
 ic2_mysqld_ido_cfg_content: |
   library "db_ido_mysql"
