@@ -27,19 +27,23 @@
            enabled=true
   tags: svc
 
-- name: Create Icinga Database User and configure Grants
+- name: Create icinga2 Database
+  mysql_db: name={{ ic2_mysqld_db }} state=present
+  register: icinga_web2_db
+
+- name: Create icinga2 database sser and configure grants
   mysql_user: name={{ ic2_mysqld_db_user }}
               password={{ ic2_mysqld_db_pass }}
               state=present
               priv="{{ ic2_mysqld_db }}.*:GRANT,INSERT,SELECT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
-  register: ic2_mysqld_db_installed
+  register: ic2_mysqld_db_user_installed
   tags: cfg
 
 - name: Import the IDO Schema into icinga database - (only once)
   mysql_db: name={{ ic2_mysqld_db }}
             state=import
             target={{ ic2_mysqld_schema }}
-  when: ic2_mysqld_db_installed.changed == true
+  when: ic2_mysqld_db_user_installed.changed == true
   tags: cfg
 
 - name: Configure Icinga2 IDO MySQL Feature

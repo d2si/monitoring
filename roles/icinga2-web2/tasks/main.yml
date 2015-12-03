@@ -13,11 +13,6 @@
            state=started
            enabled=true
 
-- name: Create a Database for Icinga2
-  mysql_db: name={{ icinga2_web2_db }}
-            state=present
-  register: icinga_web2_db
-
 - name: Create Icinga Database User and configure Grants
   mysql_user: name={{ icinga2_web2_db_user }}
               password={{ icinga2_web2_db_pass }}
