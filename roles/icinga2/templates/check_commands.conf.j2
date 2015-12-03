@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 
-{% for key,value in i2_cfg_check_commands_content.iteritems() %}
+{% for key,value in ic2_cfg_check_commands_content.iteritems() %}
 object CheckCommand "{{ key }}" {
   import "plugin-check-command"
 
