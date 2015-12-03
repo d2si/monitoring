@@ -1,6 +1,7 @@
 ---
 
 osvar_httpd_user: www-data
+osvar_httpd_svc_name: apache2
 osvar_pkg_name: icingaweb2
 osvar_php_ini_path: "/etc/php5/apache2/php.ini"
 

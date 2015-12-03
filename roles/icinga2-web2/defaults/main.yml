@@ -19,6 +19,7 @@ icweb2_ic2_mysqld_db: icinga2
 icweb2_ic2_mysqld_db_pass: icinga2
 icweb2_ic2_mysqld_db_user: icinga2
 
+icweb2_httpd_svc_name: "{{ osvar_httpd_svc_name }}"
 icweb2_httpd_user: "{{ osvar_httpd_user }}"
 
 icweb2_admin_user: "admin"

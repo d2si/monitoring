@@ -1,4 +1,4 @@
 ---
 
-- name: restart icingaweb2
-  service: name={{ icweb2_svc_name }} state=restarted
+- name: restart httpd
+  service: name={{ icweb2_httpd_svc_name }} state=restarted
