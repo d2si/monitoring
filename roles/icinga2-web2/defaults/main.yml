@@ -13,9 +13,9 @@ icweb2_mysqld_svc_name: "{{ osvar_mysqld_svc_name }}"
 
 # icinga2 DB
 icweb2_ic2_mysqld_login_host: 127.0.0.1
-icweb2_ic2_mysqld_db: icinga
-icweb2_ic2_mysqld_db_pass: icinga
-icweb2_ic2_mysqld_db_user: icinga
+icweb2_ic2_mysqld_db: icinga2
+icweb2_ic2_mysqld_db_pass: icinga2
+icweb2_ic2_mysqld_db_user: icinga2
 
 icweb2_httpd_user: "{{ osvar_httpd_user }}"
 

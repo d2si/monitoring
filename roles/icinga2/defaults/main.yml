@@ -17,9 +17,9 @@ ic2_svc_state: started
 ic2_mysqld_login_host: 127.0.0.1
 ic2_mysqld_login_user: root
 ic2_mysqld_login_pass: ""
-ic2_mysqld_db: icinga
-ic2_mysqld_db_pass: icinga
-ic2_mysqld_db_user: icinga
+ic2_mysqld_db: icinga2
+ic2_mysqld_db_pass: icinga2
+ic2_mysqld_db_user: icinga2
 ic2_mysqld_schema: "{{ osvar_mysqld_schema }}"
 ic2_mysqld_ido_cfg: "{{ osvar_mysqld_ido_cfg }}"
 

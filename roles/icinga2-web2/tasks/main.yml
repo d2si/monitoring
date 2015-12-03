@@ -1,5 +1,7 @@
 ---
 
+- include: mysqld.yml
+
 - name: Install Icingaweb2
   package: name={{ icweb2_pkg_name }} state=latest
   tags: pkg
