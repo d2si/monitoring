@@ -39,7 +39,7 @@
   mysql_db: name={{ ic2_mysqld_db }}
             state=import
             target={{ ic2_mysqld_schema }}
-  when: icinga_db.changed == true
+  when: ic2_mysqld_db.changed == true
   tags: cfg
 
 - name: Configure Icinga2 IDO MySQL Feature
