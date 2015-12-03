@@ -1,12 +1,40 @@
 ---
-# tasks file for icinga2-ansible-no-ui
 
-- include: icinga2_Debian_install.yml
-  when: ansible_os_family == 'Debian'
+- include: "{{ ansible_os_family }}.yml"
 
-- include: icinga2_RedHat_install.yml
-  when: ansible_os_family == 'RedHat'
+- name: Install the Icinga2 packages
+  package: name={{ item }} state=latest
+  with_items: "{{ icinga2_pkgs_name }}"
+  tags: pkg
 
-- include: icinga2_configure.yml
-  tags: 
-   - icinga2_configure
+- name:  Activate Icinga2 command feature
+  command: "icinga2 feature enable command"
+  register: features_result
+  changed_when: "'for these changes to take effect' in features_result.stdout"
+  notify: restart icinga2
+  tags: cfg
+
+- name: Enable the Icinga2 service
+  service:
+    name: "{{ icinga2_svc_name }}"
+    state: "{{ icinga2_svc_state }}"
+    enabled: "{{ icinga2_svc_enabled }}"
+  tags: svc
+
+- name: Copy Main Icinga2 Configuration
+  template: src=icinga2.conf.j2
+            dest={{ icinga2_cfg_path }}
+            owner=0
+            group=0
+            mode=0644
+  notify: restart icinga2
+  tags: cfg
+
+- name: Copy Check Commands Configuration
+  template: src=icinga2_check_commands.j2
+            dest={{ icinga2_cfgd_path }}/check_commands.conf
+            owner=0
+            group=0
+            mode=0644
+  notify: restart icinga2
+  tags: cfg
