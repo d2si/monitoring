@@ -1,9 +1,5 @@
 ---
 
-- name: Get OS-specific variables
-  include_vars: "{{ ansible_os_family }}.yml"
-  tags: always
-
 - name: Get Icinga2 package key
   apt_key: url={{ ic2_pkg_key }} state=present
   tags: pkg

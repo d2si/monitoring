@@ -5,7 +5,6 @@
   tags: always
 
 - include: "{{ ansible_os_family }}.yml"
-- include: mysqld.yml
 
 - name: Install Icingaweb2
   package: name={{ icweb2_pkg_name }} state=latest
@@ -40,3 +39,5 @@
 
 - name: Enable the monitoring module
   file: src=/usr/share/icingaweb2/modules/monitoring dest=/etc/icingaweb2/enabledModules/monitoring state=link
+
+- include: mysqld.yml
