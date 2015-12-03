@@ -28,7 +28,7 @@
   mysql_db: name={{ ic2_mysqld_db }} state=present
             login_host={{ ic2_mysqld_login_host }}
             login_user={{ ic2_mysqld_login_user }}
-            login_password={{ ic2_mysqld_login_password }}
+            login_password={{ ic2_mysqld_login_pass }}
   register: ic2_mysqld_db_installed
 
 - name: Create icinga2 database user and configure grants
@@ -39,7 +39,7 @@
               priv="{{ ic2_mysqld_db }}.*:GRANT,INSERT,SELECT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
               login_host={{ ic2_mysqld_login_host }}
               login_user={{ ic2_mysqld_login_user }}
-              login_password={{ ic2_mysqld_login_password }}
+              login_password={{ ic2_mysqld_login_pass }}
   tags: cfg
 
 - name: Import the IDO Schema into icinga database - (only once)
@@ -48,7 +48,7 @@
             target={{ ic2_mysqld_schema }}
             login_host={{ ic2_mysqld_login_host }}
             login_user={{ ic2_mysqld_login_user }}
-            login_password={{ ic2_mysqld_login_password }}
+            login_password={{ ic2_mysqld_login_pass }}
   when: ic2_mysqld_db_installed.changed == true
   tags: cfg
 
