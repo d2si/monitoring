@@ -10,6 +10,8 @@ icweb2_mysqld_login_user: root
 icweb2_mysqld_login_pass: ""
 icweb2_mysqld_pkgs_name: "{{ osvar_mysqld_pkgs_name }}"
 icweb2_mysqld_svc_name: "{{ osvar_mysqld_svc_name }}"
+icweb2_mysqld_svc_enabled: yes
+icweb2_mysqld_svc_state: started
 
 # icinga2 DB
 icweb2_ic2_mysqld_login_host: 127.0.0.1
