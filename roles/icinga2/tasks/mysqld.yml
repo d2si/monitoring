@@ -5,15 +5,14 @@
   when: ansible_os_family == 'Debian'
   tags: pkg
 
-- name: Disable automatic creation of the icinga database
-  lineinfile:
-    dest=/etc/dbconfig-common/icinga2-ido-mysql.conf
-    line="dbc_install='false'"
-    create=yes
+- name: Disable automatic creation of the Icinga2 database
+  lineinfile: dest=/etc/dbconfig-common/icinga2-ido-mysql.conf
+              line="dbc_install='false'"
+              create=yes
   when: ansible_os_family == 'Debian'
   tags: pkg
 
-- name: Install the MySQL server and IDO modules
+- name: Install the MySQL server and IDO module
   apt: name={{ item }} state=latest
   with_items: "{{ ic2_mysqld_pkgs_name }}"
   tags: pkg
@@ -24,14 +23,14 @@
            enabled={{ ic2_mysqld_svc_enabled }}
   tags: svc
 
-- name: Create icinga2 Database
+- name: Create the Icinga2 database
   mysql_db: name={{ ic2_mysqld_db_name }} state=present
             login_host={{ ic2_mysqld_login_host }}
             login_user={{ ic2_mysqld_login_user }}
             login_password={{ ic2_mysqld_login_pass }}
   register: ic2_mysqld_db_installed
 
-- name: Create icinga2 database user and configure grants
+- name: Create Icinga2 database user and configure grants
   mysql_user: name={{ ic2_mysqld_db_user }}
               password={{ ic2_mysqld_db_pass }}
               update_password=always
@@ -42,7 +41,7 @@
               login_password={{ ic2_mysqld_login_pass }}
   tags: cfg
 
-- name: Import the IDO Schema into icinga database - (only once)
+- name: Import the IDO schema into Icinga2 database - (only once)
   mysql_db: name={{ ic2_mysqld_db_name }}
             state=import
             target={{ ic2_mysqld_schema }}
@@ -52,7 +51,7 @@
   when: ic2_mysqld_db_installed.changed == true
   tags: cfg
 
-- name: Configure Icinga2 IDO MySQL Feature
+- name: Configure Icinga2 IDO MySQL feature
   template: src=ido-mysql.conf.j2
             dest={{ ic2_mysqld_ido_cfg }}
             owner=nagios
@@ -61,7 +60,7 @@
   notify: restart icinga2
   tags: cfg
 
-- name: Enable Icinga2 IDO MySQL Feature
+- name: Enable Icinga2 IDO MySQL feature
   command: "icinga2 feature enable ido-mysql"
   register: ic2_feature_result
   changed_when: "'for these changes to take effect' in ic2_feature_result.stdout"

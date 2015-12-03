@@ -1,8 +1,12 @@
 ---
 
 - name: Get OS-specific variables
-  include_vars: "{{ ansible_os_family }}.yml"
+  include_vars: "{{ item }}"
+  with_first_found:
+   - "{{ ansible_distribution }}.yml"
+   - "{{ ansible_os_family }}.yml"
   tags: always
+
 
 - include: "{{ ansible_os_family }}.yml"
 
@@ -10,7 +14,7 @@
   package: name={{ icweb2_pkg_name }} state=latest
   tags: pkg
 
-- name: Add web server user to group icingaweb2
+- name: Add web server user to the Icingaweb2 group
   user: name={{ icweb2_httpd_user}} groups=icingaweb2 append=yes
   notify: restart httpd
 
@@ -19,12 +23,14 @@
                state=present
                regexp='date.timezone'
                line='date.timezone = {{ icweb2_php_ini_timezone }}'
+  tags: cfg
 
-- name: Insure /etc/icingaweb2 sub-directories exist
+- name: Install /etc/icingaweb2/ sub-directories
   file: path={{ item }} state=directory group=icingaweb2
   with_items:
     - /etc/icingaweb2/modules/monitoring
     - /etc/icingaweb2/enabledModules
+  tags: cfg
 
 - name: Configure Icinga2 Web
   template: src={{ item.template }} dest={{ item.directory }}/{{ item.file }} group=icingaweb2
@@ -36,8 +42,10 @@
     - { directory: "/etc/icingaweb2/modules/monitoring", file: "config.ini", template: "monitoring_config.ini.j2"}
     - { directory: "/etc/icingaweb2/modules/monitoring", file: "backends.ini", template: "monitoring_backends.ini.j2"}
     - { directory: "/etc/icingaweb2/modules/monitoring", file: "commandtransports.ini", template: "monitoring_commandtransports.ini.j2"}
+  tags: cfg
 
 - name: Enable the monitoring module
   file: src=/usr/share/icingaweb2/modules/monitoring dest=/etc/icingaweb2/enabledModules/monitoring state=link
+  tags: cfg
 
 - include: mysqld.yml

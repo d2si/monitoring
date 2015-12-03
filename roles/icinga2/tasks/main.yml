@@ -1,8 +1,12 @@
 ---
 
 - name: Get OS-specific variables
-  include_vars: "{{ ansible_os_family }}.yml"
+  include_vars: "{{ item }}"
+  with_first_found:
+   - "{{ ansible_distribution }}.yml"
+   - "{{ ansible_os_family }}.yml"
   tags: always
+
 
 - include: "{{ ansible_os_family }}.yml"
 
@@ -25,7 +29,7 @@
     enabled: "{{ ic2_svc_enabled }}"
   tags: svc
 
-- name: Copy Main Icinga2 Configuration
+- name: Configure Icinga2 (main configuration)
   template: src=icinga2.conf.j2
             dest={{ ic2_cfg_path }}
             owner=0
@@ -34,7 +38,7 @@
   notify: restart icinga2
   tags: cfg
 
-- name: Copy Check Commands Configuration
+- name: Configure Icinga2 (check_commands)
   template: src=check_commands.conf.j2
             dest={{ ic2_cfgd_path }}/check_commands.conf
             owner=0
