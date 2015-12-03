@@ -3,14 +3,14 @@
   roles:
 
     - role: icinga2
-      i2_cfg_content: |
+      ic2_cfg_content: |
         include "constants.conf"
         include "zones.conf"
         include <itl>
         include <plugins>
         include "features-enabled/*.conf"
         include_recursive "conf.d"
-      i2_cfg_check_commands_content:
+      ic2_cfg_check_commands_content:
         check_nrpe: |
           "-H", "$address$",
           "-c", "$remote_nrpe_command$",
