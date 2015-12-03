@@ -29,7 +29,7 @@
   when: icweb2_mysqld_db_installed.changed == true
   tags: cfg
 
-- name: Create Icinga Users Database User and configure Grants
+- name: Create Icingaweb2 database user and configure grants
   mysql_user: name={{ icweb2_mysqld_db_user }}
               password={{ icweb2_mysqld_db_pass }}
               state=present
