@@ -1,37 +1,17 @@
 - hosts: MonitoringServers
-
   roles:
 
     - role: icinga2
-      ic2_cfg_content: |
-        include "constants.conf"
-        include "zones.conf"
-        include <itl>
-        include <plugins>
-        include "features-enabled/*.conf"
-        include_recursive "conf.d"
-      ic2_cfg_check_commands_content:
-        check_nrpe: |
-          "-H", "$address$", "-c", "$remote_nrpe_command$",
       tags: icinga2
 
 
     - role: icinga2-web2
       icinga2_web2_db_pass: "CHANGEME"
-      icinga2_ido_mysql_configuration: |
-      library "db_ido_mysql"
-
-      object IdoMysqlConnection "ido-mysql" {
-        user = "{{ icinga2_web2_db_user }}"
-        password = "{{ icinga2_web2_db_pass }}"
-        host = "localhost"
-        database = "{{ icinga2_web2_db }}"
-      }
       tags: icinga2-web2
 
 - hosts: MonitoringAgents
-
   roles:
+
     - role: snmpd
       snmpd_cfg_rocommunity: oxalide
       snmpd_cfg_syslocation: oxalide
