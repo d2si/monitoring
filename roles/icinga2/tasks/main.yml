@@ -38,3 +38,5 @@
             mode=0644
   notify: restart icinga2
   tags: cfg
+
+- include: mysqld.yml

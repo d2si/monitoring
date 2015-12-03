@@ -12,8 +12,7 @@
         include_recursive "conf.d"
       ic2_cfg_check_commands_content:
         check_nrpe: |
-          "-H", "$address$",
-          "-c", "$remote_nrpe_command$",
+          "-H", "$address$", "-c", "$remote_nrpe_command$",
       tags: icinga2
 
 

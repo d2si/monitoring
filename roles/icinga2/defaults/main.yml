@@ -13,3 +13,11 @@ ic2_cfgd_path: "{{ osvar_cfgd_path }}"
 ic2_svc_name: "{{ osvar_svc_name }}"
 ic2_svc_enabled: yes
 ic2_svc_state: started
+
+ic2_mysqld_db: icinga
+ic2_mysqld_db_pass: icinga
+ic2_mysqld_db_user: icinga
+ic2_mysqld_schema: "{{ osvar_mysqld_schema }}"
+ic2_mysqld_ido_cfg: "{{ osvar_mysqld_ido_cfg }}"
+
+

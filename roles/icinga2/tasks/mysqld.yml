@@ -1,0 +1,58 @@
+---
+
+- name: Create dbconfig directory for DebConf
+  file: path=/etc/dbconfig-common state=directory owner=0 group=0 mode=0755
+  when: ansible_os_family == 'Debian'
+  tags: pkg
+
+- name: Disable automatic creation of the icinga database
+  lineinfile:
+    dest=/etc/dbconfig-common/icinga2-ido-mysql.conf
+    line="dbc_install='false'"
+    create=yes
+  when: ansible_os_family == 'Debian'
+  tags: pkg
+
+- name: Install the MySQL server and IDO modules
+  apt: name={{ item }} state=latest
+  with_items:
+    - mysql-server
+    - python-mysqldb
+    - icinga2-ido-mysql
+  tags: pkg
+
+- name: Start the MySQL service
+  service: name=mysql
+           state=started
+           enabled=true
+  tags: svc
+
+- name: Create Icinga Database User and configure Grants
+  mysql_user: name={{ ic2_mysqld_db_user }}
+              password={{ ic2_mysqld_db_pass }}
+              state=present
+              priv="{{ ic2_mysqld_db }}.*:GRANT,INSERT,SELECT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
+  tags: cfg
+
+- name: Import the IDO Schema into icinga database - (only once)
+  mysql_db: name={{ ic2_mysqld_db }}
+            state=import
+            target={{ ic2_mysqld_schema }}
+  when: icinga_db.changed == true
+  tags: cfg
+
+- name: Configure Icinga2 IDO MySQL Feature
+  template: src=ido-mysql.conf.j2
+            dest={{ ic2_mysqld_ido_cfg }}
+            owner=nagios
+            group=nagios
+            mode=0640
+  notify: restart icinga2
+  tags: cfg
+
+- name: Enable Icinga2 Ido Mysql Feature
+  command: "icinga2 feature enable ido-mysql"
+  register: features_result
+  changed_when: "'for these changes to take effect' in features_result.stdout"
+  notify: restart icinga2
+  tags: cfg
