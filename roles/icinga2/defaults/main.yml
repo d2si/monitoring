@@ -19,5 +19,4 @@ ic2_mysqld_db_pass: icinga
 ic2_mysqld_db_user: icinga
 ic2_mysqld_schema: "{{ osvar_mysqld_schema }}"
 ic2_mysqld_ido_cfg: "{{ osvar_mysqld_ido_cfg }}"
-
-
+ic2_mysqld_ido_cfg_content: none
