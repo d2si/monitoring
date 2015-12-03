@@ -16,7 +16,7 @@
   mysql_db: name={{ icweb2_mysqld_db_name }} state=present
             login_host={{ icweb2_mysqld_login_host }}
             login_user={{ icweb2_mysqld_login_user }}
-            login_password={{ icweb2__mysqld_login_pass }}
+            login_password={{ icweb2_mysqld_login_pass }}
   tags: cfg
 
 - name: Create Icinga Users Database User and configure Grants
