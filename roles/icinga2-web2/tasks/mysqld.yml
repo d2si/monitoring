@@ -16,7 +16,7 @@
             login_host={{ icweb2_mysqld_login_host }}
             login_user={{ icweb2_mysqld_login_user }}
             login_password={{ icweb2_mysqld_login_pass }}
-  register: iicweb2_mysqld_db_installed
+  register: icweb2_mysqld_db_installed
   tags: cfg
 
 - name: Import the Icingaweb2 schema into the database - (only once)
