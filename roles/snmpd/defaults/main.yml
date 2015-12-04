@@ -27,6 +27,3 @@ snmpd_ic2_checks: []
 
 # Icinga2 master server(s)
 snmpd_ic2_master: ['127.0.0.1']
-
-# Icinga2 satellite zone
-snmpd_ic2_zone: master
