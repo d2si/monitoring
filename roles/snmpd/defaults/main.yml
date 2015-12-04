@@ -2,7 +2,7 @@
 
 snmpd_cfg_path: "{{ osvar_cfg_path }}"
 snmpd_cfg_agentaddress: "{{ ansible_default_ipv4.address }}"
-snmpd_ic2_cfg_dirpath: /etc/icinga2/conf.d
+snmpd_ic2_cfg_dirpath: /etc/icinga2/zones.d
 snmpd_ic2_svc_name: icinga2
 snmpd_pkg_name: "{{ osvar_pkg_name }}"
 snmpd_svc_name: "{{ osvar_svc_name }}"
