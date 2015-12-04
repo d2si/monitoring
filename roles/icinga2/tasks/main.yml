@@ -5,5 +5,5 @@
   tags: always
 
 - include: "{{ ansible_os_family }}.yml"
-
+- include: icinga2.yml
 - include: mysqld.yml

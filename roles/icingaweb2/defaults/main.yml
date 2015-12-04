@@ -5,8 +5,8 @@ icweb2_mysqld_db_name: "icingaweb2"
 icweb2_mysqld_db_pass: "icingaweb2"
 icweb2_mysqld_db_user: "icingaweb2"
 icweb2_mysqld_schema: "{{ osvar_mysqld_schema }}"
-icweb2_mysqld_login_host: 127.0.0.1
-icweb2_mysqld_login_user: root
+icweb2_mysqld_login_host: localhost
+icweb2_mysqld_login_user: ""
 icweb2_mysqld_login_pass: ""
 icweb2_mysqld_pkgs_name: "{{ osvar_mysqld_pkgs_name }}"
 icweb2_mysqld_svc_name: "{{ osvar_mysqld_svc_name }}"
@@ -14,7 +14,7 @@ icweb2_mysqld_svc_enabled: yes
 icweb2_mysqld_svc_state: started
 
 # icinga2 DB
-icweb2_ic2_mysqld_login_host: 127.0.0.1
+icweb2_ic2_mysqld_login_host: localhost
 icweb2_ic2_mysqld_db_name: icinga2
 icweb2_ic2_mysqld_db_pass: icinga2
 icweb2_ic2_mysqld_db_user: icinga2
