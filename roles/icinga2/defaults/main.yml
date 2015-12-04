@@ -15,7 +15,7 @@ ic2_svc_enabled: yes
 ic2_svc_state: started
 
 ic2_mysqld_login_host: localhost
-ic2_mysqld_login_user: ""
+ic2_mysqld_login_user: root
 ic2_mysqld_login_pass: ""
 ic2_mysqld_db_name: icinga2
 ic2_mysqld_db_pass: icinga2

@@ -6,7 +6,7 @@ icweb2_mysqld_db_pass: "icingaweb2"
 icweb2_mysqld_db_user: "icingaweb2"
 icweb2_mysqld_schema: "{{ osvar_mysqld_schema }}"
 icweb2_mysqld_login_host: localhost
-icweb2_mysqld_login_user: ""
+icweb2_mysqld_login_user: root
 icweb2_mysqld_login_pass: ""
 icweb2_mysqld_pkgs_name: "{{ osvar_mysqld_pkgs_name }}"
 icweb2_mysqld_svc_name: "{{ osvar_mysqld_svc_name }}"
