@@ -7,6 +7,8 @@ ic2_debmon_apt_repository: "{{ osvar_debmon_apt_repository }}"
 ic2_pkg_key: http://packages.icinga.org/icinga.key
 ic2_pkgs_name: [ "{{ osvar_pkgs_name }}" ]
 
+ic2_features: [ "command", "api"]
+
 ic2_cfg_path: "{{ osvar_cfg_path }}"
 ic2_cfgd_path: "{{ osvar_cfgd_path }}"
 
@@ -36,7 +38,6 @@ ic2_cfg_content: |
   include <itl>
   include <plugins>
   include "features-enabled/*.conf"
-  include_recursive "conf.d"
 
 ic2_cfg_check_commands_content:
   check_nrpe: |

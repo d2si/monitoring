@@ -1,0 +1,12 @@
+---
+
+- name: Check if master already has CA files
+  stat: path="{{ ic2_ca_filei }}"
+  register: certificate_file
+  when: is_master == True
+
+- name: Create CA on master
+  command: icinga2 pki new-ca
+  when: (is_master == True) and (not certificate_file.stat.exists)
+
+- name: Creat
