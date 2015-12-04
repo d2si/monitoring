@@ -14,6 +14,7 @@
   roles:
 
     - role: snmpd
+      snmpd_ic2_master: ['54.171.205.144']
       snmpd_cfg_rocommunity: oxalide
       snmpd_cfg_syslocation: oxalide
       snmpd_cfg_syscontact: report@oxalide.com

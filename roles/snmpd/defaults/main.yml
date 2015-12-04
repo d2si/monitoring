@@ -2,16 +2,31 @@
 
 snmpd_cfg_path: "{{ osvar_cfg_path }}"
 snmpd_cfg_agentaddress: "{{ ansible_default_ipv4.address }}"
-snmpd_cfg_rocommunity: public
-snmpd_cfg_syslocation: Sitting on the Dock of the Bay
-snmpd_cfg_syscontact: Me <me@example.org>
-
 snmpd_ic2_cfg_dirpath: /etc/icinga2/conf.d
 snmpd_ic2_svc_name: icinga2
-snmpd_ic2_checks: []
-
 snmpd_pkg_name: "{{ osvar_pkg_name }}"
-
 snmpd_svc_name: "{{ osvar_svc_name }}"
 snmpd_svc_enabled: yes
 snmpd_svc_state: started
+
+#
+# most useful user variables
+#
+
+# SNMP community name
+snmpd_cfg_rocommunity: public
+
+# SNMP agent location
+snmpd_cfg_syslocation: Sitting on the Dock of the Bay
+
+# SNMP contact of the agent administrator
+snmpd_cfg_syscontact: Me <me@example.org>
+
+# SNMP checks
+snmpd_ic2_checks: []
+
+# Icinga2 master server(s)
+snmpd_ic2_master: ['127.0.0.1']
+
+# Icinga2 satellite zone
+snmpd_ic2_zone: master
