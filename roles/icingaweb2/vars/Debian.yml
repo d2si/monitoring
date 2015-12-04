@@ -2,11 +2,11 @@
 
 osvar_httpd_user: www-data
 osvar_httpd_svc_name: apache2
-osvar_pkg_name: icingaweb2
+osvar_pkgs_name:
+  - icingaweb2
+  - python-mysqldb
 osvar_php_ini_path: "/etc/php5/apache2/php.ini"
 
 osvar_mysqld_schema: "/usr/share/icingaweb2/etc/schema/mysql.schema.sql"
 osvar_mysqld_svc_name: mysql
-osvar_mysqld_pkgs_name:
-    - mysql-server
-    - python-mysqldb
+osvar_mysqld_pkg_name: mysql-server

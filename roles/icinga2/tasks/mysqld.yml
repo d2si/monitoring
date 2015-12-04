@@ -1,16 +1,15 @@
 ---
 
-- name: Install the MySQL server and IDO module
-  apt: name={{ item }} state=latest
-  with_items: "{{ ic2_mysqld_pkgs_name }}"
-  when: ic2_mysqld_login_host != "localhost"
+- name: Install MySQL server
+  package: name={{ ic2_mysqld_pkgs_name }} state=latest
+  when: ic2_mysqld_login_host == "localhost"
   tags: pkg
 
 - name: Start the MySQL service
   service: name={{ ic2_mysqld_svc_name }}
            state={{ ic2_mysqld_svc_state }}
            enabled={{ ic2_mysqld_svc_enabled }}
-  when: ic2_mysqld_login_host != "localhost"
+  when: ic2_mysqld_login_host == "localhost"
   tags: svc
 
 - name: Create the Icinga2 database
@@ -26,6 +25,7 @@
               update_password=always
               state=present
               priv="{{ ic2_mysqld_db_name }}.*:GRANT,INSERT,SELECT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
+              host='%'
               login_host={{ ic2_mysqld_login_host }}
               login_user={{ ic2_mysqld_login_user }}
               login_password={{ ic2_mysqld_login_pass }}

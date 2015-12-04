@@ -8,7 +8,7 @@ icweb2_mysqld_schema: "{{ osvar_mysqld_schema }}"
 icweb2_mysqld_login_host: localhost
 icweb2_mysqld_login_user: root
 icweb2_mysqld_login_pass: ""
-icweb2_mysqld_pkgs_name: "{{ osvar_mysqld_pkgs_name }}"
+icweb2_mysqld_pkg_name: "{{ osvar_mysqld_pkg_name }}"
 icweb2_mysqld_svc_name: "{{ osvar_mysqld_svc_name }}"
 icweb2_mysqld_svc_enabled: yes
 icweb2_mysqld_svc_state: started
@@ -25,7 +25,7 @@ icweb2_httpd_user: "{{ osvar_httpd_user }}"
 icweb2_admin_user: "admin"
 icweb2_admin_pass: "CHANGEME"
 
-icweb2_pkg_name: "{{ osvar_pkg_name }}"
+icweb2_pkgs_name: "{{ osvar_pkgs_name }}"
 
 icweb2_php_ini_path: "{{ osvar_php_ini_path }}"
 icweb2_php_ini_timezone: "Europe/Paris"

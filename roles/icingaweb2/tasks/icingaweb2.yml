@@ -1,7 +1,8 @@
 ---
 
 - name: Install Icingaweb2
-  package: name={{ icweb2_pkg_name }} state=latest
+  package: name={{ item }} state=latest
+  with_items: "{{ icweb2_pkgs_name }}"
   tags: pkg
 
 - name: Add web server user to the Icingaweb2 group

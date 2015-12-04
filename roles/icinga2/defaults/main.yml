@@ -23,7 +23,7 @@ ic2_mysqld_db_user: icinga2
 ic2_mysqld_schema: "{{ osvar_mysqld_schema }}"
 ic2_mysqld_ido_cfg: "{{ osvar_mysqld_ido_cfg }}"
 
-ic2_mysqld_pkgs_name: "{{ osvar_mysqld_pkgs_name }}"
+ic2_mysqld_pkg_name: "{{ osvar_mysqld_pkg_name }}"
 
 ic2_mysqld_svc_name: "{{ osvar_mysqld_svc_name }}"
 ic2_mysqld_svc_enabled: yes

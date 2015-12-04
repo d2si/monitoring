@@ -14,13 +14,12 @@ osvar_pkgs_name:
   - nagios-plugins
   - snmp
   - mailutils
+  - python-mysqldb
+  - icinga2-ido-mysql
 
 osvar_svc_name: icinga2
 
 osvar_mysqld_ido_cfg: /etc/icinga2/features-available/ido-mysql.conf
 osvar_mysqld_schema: /usr/share/icinga2-ido-mysql/schema/mysql.sql
 osvar_mysqld_svc_name: mysql
-osvar_mysqld_pkgs_name:
-    - mysql-server
-    - python-mysqldb
-    - icinga2-ido-mysql
+osvar_mysqld_pkg_name: mysql-server
