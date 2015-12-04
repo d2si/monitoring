@@ -6,6 +6,7 @@ ic2_debmon_apt_repository: "{{ osvar_debmon_apt_repository }}"
 ic2_pkg_key: http://packages.icinga.org/icinga.key
 ic2_pkgs_name: [ "{{ osvar_pkgs_name }}" ]
 ic2_ca_file: "{{ osvar_ca_file }}"
+ic2_pki_path: "{{ osvar_pki_path }}"
 
 ic2_cfg_path: "{{ osvar_cfg_path }}"
 ic2_cfgd_path: "{{ osvar_cfgd_path }}"
@@ -36,6 +37,12 @@ ic2_mysqld_login_pass: ""
 
 # Icinga features to enable 
 ic2_features: [ "command", "api"]
+
+# Set to true for a master (PKI)
+ic2_is_master: False
+
+# Configure master for satellite nodes
+ic2_master: ""
 
 # /etc/icinga2/icinga2.conf
 ic2_cfg_content: |

@@ -31,11 +31,23 @@
   notify: restart icinga2
   tags: cfg
 
-- name: Configure Icinga2 (check_commands)
-  template: src=check_commands.conf.j2
-            dest={{ ic2_cfgd_path }}/global-templates/check_commands.conf
-            owner=0
-            group=0
-            mode=0644
+- name: Create Global directory
+  file: path="{{ ic2_cfgd_path }}/global-templates" state=directory
+  tags: cfg
+
+- name: Copy global template files
+  template: src="global-templates/{{ item }}.conf.j2"
+            dest="{{ ic2_cfgd_path }}/global-templates/{{ item }}.conf"
+  with_items:
+    - "apt"
+    - "check_commands"
+    - "commands"
+    - "groups"
+    - "notifications"
+    - "services"
+    - "templates"
+    - "timeperiods"
+    - "users"
   notify: restart icinga2
   tags: cfg
+

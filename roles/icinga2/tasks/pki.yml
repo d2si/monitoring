@@ -1,12 +1,36 @@
 ---
 
+- name: Set permissions on PKI directory
+  file: path="{{ ic2_pki_path }}" state=directory owner="nagios" group="nagios" mode=0750
+
 - name: Check if master already has CA files
-  stat: path="{{ ic2_ca_filei }}"
-  register: certificate_file
-  when: is_master == True
+  stat: path="{{ ic2_ca_file }}"
+  register: ca_file
+  when: ic2_is_master == True
 
 - name: Create CA on master
   command: icinga2 pki new-ca
-  when: (is_master == True) and (not certificate_file.stat.exists)
+  when: (ic2_is_master == True) and (not ca_file.stat.exists)
 
-- name: Creat
+- name: Check if host already has a certificate
+  stat: path="{{ ic2_pki_path }}/{{ ansible_hostname }}.crt"
+  register: crt_file
+
+- name: Create host CSR
+  command: icinga2 pki new-cert --cn "{{ ansible_hostname }}" --key "{{ ic2_pki_path }}/{{ ansible_hostname }}.key" --csr "{{ ic2_pki_path }}/{{ ansible_hostname }}.csr"
+  delegate_to: "{{ ic2_master }}" 
+  when: not crt_file.stat.exists
+
+- name: Sign host certificate with CA
+  command: icinga2 pki sign-csr --csr "{{ ic2_pki_path }}/{{ ansible_hostname }}.csr" --cert "{{ ic2_pki_path }}/{{ ansible_hostname }}.crt"
+  delegate_to: "{{ ic2_master }}" 
+  when: not crt_file.stat.exists
+
+- name: Fetch certificate and key from master
+  fetch: src="{ ic2_pki_path }}/{{ ansible_hostname }}.{{ item }}" dest="/tmp/{{ ansible_hostname }}.{{ item }}"
+  delegate_to: "{{ ic2_master }}" 
+  when: (ic2_is_master == False) and (not crt_file.stat.exists)
+
+- name: Upload certificate and key
+  copy: dest="{ ic2_pki_path }}/{{ ansible_hostname }}.{{ item }}" src="/tmp/{{ ansible_hostname }}.{{ item }}"
+  when: (ic2_is_master == False) and (not crt_file.stat.exists)

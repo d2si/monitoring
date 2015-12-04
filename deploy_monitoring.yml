@@ -1,7 +1,8 @@
 - hosts: Icinga2Master
   roles:
-
     - role: icinga2
+      ic2_master: 54.171.205.144
+      ic2_is_master: True
       tags: icinga2
 
 - hosts: Icinga2Web

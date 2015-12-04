@@ -26,3 +26,4 @@ osvar_mysqld_svc_name: mysql
 osvar_mysqld_pkg_name: mysql-server
 
 osvar_ca_file: /var/lib/icinga2/ca/ca.crt
+osvar_pki_path: /etc/icinga2/pki
