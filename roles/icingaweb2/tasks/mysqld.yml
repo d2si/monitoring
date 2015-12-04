@@ -3,12 +3,14 @@
 - name: Install the MySQL server and IDO module
   apt: name={{ item }} state=latest
   with_items: "{{ icweb2_mysqld_pkgs_name }}"
+  when: icweb2_mysqld_login_host != "localhost"
   tags: pkg
 
 - name: Start the MySQL service
   service: name={{ icweb2_mysqld_svc_name }}
            state={{ icweb2_mysqld_svc_state }}
            enabled={{ icweb2_mysqld_svc_enabled }}
+  when: icweb2_mysqld_login_host != "localhost"
   tags: svc
 
 - name: Create Icingaweb2 database
@@ -41,5 +43,5 @@
   tags: cfg
 
 - name: Create/update initial admin user
-  shell: "mysql {{ icweb2_mysqld_db_name }} -e \"REPLACE INTO icingaweb_user (name, active, password_hash) VALUES ('{{ icweb2_admin_user }}', 1, '$(openssl passwd -1 {{ icweb2_admin_pass }})')\""
+  shell: "mysql {{ icweb2_mysqld_db_name }} -h {{ icweb2_mysqld_login_host }} -u {{ icweb2_mysqld_login_user }} --password={{ icweb2_mysqld_login_pass }} -e \"REPLACE INTO icingaweb_user (name, active, password_hash) VALUES ('{{ icweb2_admin_user }}', 1, '$(openssl passwd -1 {{ icweb2_admin_pass }})')\""
   tags: cfg

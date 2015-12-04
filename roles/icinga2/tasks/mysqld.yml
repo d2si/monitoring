@@ -3,12 +3,14 @@
 - name: Install the MySQL server and IDO module
   apt: name={{ item }} state=latest
   with_items: "{{ ic2_mysqld_pkgs_name }}"
+  when: ic2_mysqld_login_host != "localhost"
   tags: pkg
 
 - name: Start the MySQL service
   service: name={{ ic2_mysqld_svc_name }}
            state={{ ic2_mysqld_svc_state }}
            enabled={{ ic2_mysqld_svc_enabled }}
+  when: ic2_mysqld_login_host != "localhost"
   tags: svc
 
 - name: Create the Icinga2 database
