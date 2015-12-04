@@ -3,3 +3,13 @@
 - name: Update apt-get cache
   apt: update_cache=yes cache_valid_time=86400
   tags: pkg
+
+- name: Create dbconfig directory for DebConf
+  file: path=/etc/dbconfig-common state=directory owner=0 group=0 mode=0755
+  tags: pkg
+
+- name: Disable automatic creation of the Icinga2 database
+  lineinfile: dest=/etc/dbconfig-common/icinga2-ido-mysql.conf
+              line="dbc_install='false'"
+              create=yes
+  tags: pkg

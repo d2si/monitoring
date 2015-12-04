@@ -1,17 +1,5 @@
 ---
 
-- name: Create dbconfig directory for DebConf
-  file: path=/etc/dbconfig-common state=directory owner=0 group=0 mode=0755
-  when: ansible_os_family == 'Debian'
-  tags: pkg
-
-- name: Disable automatic creation of the Icinga2 database
-  lineinfile: dest=/etc/dbconfig-common/icinga2-ido-mysql.conf
-              line="dbc_install='false'"
-              create=yes
-  when: ansible_os_family == 'Debian'
-  tags: pkg
-
 - name: Install the MySQL server and IDO module
   apt: name={{ item }} state=latest
   with_items: "{{ ic2_mysqld_pkgs_name }}"

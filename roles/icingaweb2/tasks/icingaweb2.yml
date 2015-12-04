@@ -1,0 +1,39 @@
+---
+
+- name: Install Icingaweb2
+  package: name={{ icweb2_pkg_name }} state=latest
+  tags: pkg
+
+- name: Add web server user to the Icingaweb2 group
+  user: name={{ icweb2_httpd_user}} groups=icingaweb2 append=yes
+  notify: restart httpd
+
+- name: Set php.ini timezone
+  lineinfile:  dest={{ icweb2_php_ini_path }}
+               state=present
+               regexp='date.timezone'
+               line='date.timezone = {{ icweb2_php_ini_timezone }}'
+  tags: cfg
+
+- name: Install /etc/icingaweb2/ sub-directories
+  file: path={{ item }} state=directory group=icingaweb2
+  with_items:
+    - /etc/icingaweb2/modules/monitoring
+    - /etc/icingaweb2/enabledModules
+  tags: cfg
+
+- name: Configure Icinga2 Web
+  template: src={{ item.template }} dest={{ item.directory }}/{{ item.file }} group=icingaweb2
+  with_items:
+    - { directory: "/etc/icingaweb2", file: "resources.ini", template: "resources.ini.j2"}
+    - { directory: "/etc/icingaweb2", file: "config.ini", template: "config.ini.j2"}
+    - { directory: "/etc/icingaweb2", file: "authentication.ini", template: "authentication.ini.j2"}
+    - { directory: "/etc/icingaweb2", file: "roles.ini", template: "roles.ini.j2"}
+    - { directory: "/etc/icingaweb2/modules/monitoring", file: "config.ini", template: "monitoring_config.ini.j2"}
+    - { directory: "/etc/icingaweb2/modules/monitoring", file: "backends.ini", template: "monitoring_backends.ini.j2"}
+    - { directory: "/etc/icingaweb2/modules/monitoring", file: "commandtransports.ini", template: "monitoring_commandtransports.ini.j2"}
+  tags: cfg
+
+- name: Enable the monitoring module
+  file: src=/usr/share/icingaweb2/modules/monitoring dest=/etc/icingaweb2/enabledModules/monitoring state=link
+  tags: cfg
