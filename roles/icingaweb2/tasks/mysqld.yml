@@ -32,6 +32,7 @@
 - name: Create the Icingaweb2 database user and configure grants
   mysql_user: name={{ icweb2_mysqld_db_user }}
               password={{ icweb2_mysqld_db_pass }}
+              update_password=always
               state=present
               priv="{{ icweb2_mysqld_db_name }}.*:SELECT,INSERT,UPDATE,DELETE,DROP,CREATE VIEW,INDEX,EXECUTE"
               login_host={{ icweb2_mysqld_login_host }}
