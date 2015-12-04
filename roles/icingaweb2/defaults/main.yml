@@ -6,6 +6,7 @@ icweb2_mysqld_db_pass: "icingaweb2"
 icweb2_mysqld_db_user: "icingaweb2"
 icweb2_mysqld_schema: "{{ osvar_mysqld_schema }}"
 icweb2_mysqld_login_host: localhost
+# GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
 icweb2_mysqld_login_user: root
 icweb2_mysqld_login_pass: ""
 icweb2_mysqld_pkg_name: "{{ osvar_mysqld_pkg_name }}"
