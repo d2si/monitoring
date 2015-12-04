@@ -45,7 +45,7 @@
 - name: Add SNMP service configuration to the Icinga server(s)
   template:
     src: ic2-services-snmp.conf.j2
-    dest: "{{ snmpd_ic2_cfg_dirpath }}/services-snmp.conf"
+    dest: "{{ snmpd_ic2_cfg_dirpath }}/zones.d/global-templates/services-snmp.conf"
   delegate_to: "{{ item }}"
   with_items: "{{ snmpd_ic2_master }}"
   notify: reload icinga2
@@ -54,7 +54,7 @@
 - name: Add host configuration to the Icinga server(s)
   template:
     src: ic2-host.conf.j2
-    dest: "{{ snmpd_ic2_cfg_dirpath }}/host-{{ ansible_hostname }}.conf"
+    dest: "{{ snmpd_ic2_cfg_dirpath }}/zoned.d/{{ snmpd_ic2_zone }}/host-{{ ansible_hostname }}.conf"
   delegate_to: "{{ item }}"
   with_items: "{{ snmpd_ic2_master }}"
   notify: reload icinga2
