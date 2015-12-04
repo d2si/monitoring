@@ -1,7 +1,7 @@
 ---
 
 - name: Install MySQL server
-  package: name={{ ic2_mysqld_pkgs_name }} state=latest
+  package: name={{ ic2_mysqld_pkg_name }} state=latest
   when: ic2_mysqld_login_host == "localhost"
   tags: pkg
 
