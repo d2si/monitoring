@@ -47,7 +47,7 @@
     src: ic2-services-snmp.conf.j2
     dest: "{{ snmpd_ic2_cfg_dirpath }}/services-snmp.conf"
   delegate_to: "{{ item }}"
-  with_items: groups.MonitoringServers
+  with_items: groups.Icinga2Master
   notify: reload icinga2
   tags: cfg
 
@@ -56,6 +56,6 @@
     src: ic2-host.conf.j2
     dest: "{{ snmpd_ic2_cfg_dirpath }}/host-{{ ansible_hostname }}.conf"
   delegate_to: "{{ item }}"
-  with_items: groups.MonitoringServers
+  with_items: groups.Icinga2Master
   notify: reload icinga2
   tags: cfg

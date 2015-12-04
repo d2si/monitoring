@@ -15,6 +15,7 @@ osvar_pkgs_name:
   - snmp
   - mailutils
   - python-mysqldb
+  - mysql-client
   - icinga2-ido-mysql
 
 osvar_svc_name: icinga2

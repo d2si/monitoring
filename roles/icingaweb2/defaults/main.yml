@@ -1,12 +1,18 @@
 ---
 
+icweb2_deb_repos: [ "{{ osvar_deb_repos }}" ]
+icweb2_debmon_apt_key: "{{ osvar_debmon_apt_key }}"
+icweb2_debmon_apt_repository: "{{ osvar_debmon_apt_repository }}"
+
+icweb2_pkg_key: http://packages.icinga.org/icinga.key
+
 # icingaweb2 DB
 icweb2_mysqld_db_name: "icingaweb2"
 icweb2_mysqld_db_pass: "icingaweb2"
 icweb2_mysqld_db_user: "icingaweb2"
 icweb2_mysqld_schema: "{{ osvar_mysqld_schema }}"
-icweb2_mysqld_login_host: localhost
 # GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
+icweb2_mysqld_login_host: localhost
 icweb2_mysqld_login_user: root
 icweb2_mysqld_login_pass: ""
 icweb2_mysqld_pkg_name: "{{ osvar_mysqld_pkg_name }}"

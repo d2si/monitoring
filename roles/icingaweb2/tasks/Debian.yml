@@ -1,5 +1,21 @@
 ---
 
+- name: Get Icinga2 package key
+  apt_key: url={{ icweb2_pkg_key }} state=present
+  tags: pkg
+
+- name: Get Debmon package Key
+  apt_key: url={{ icweb2_debmon_apt_key }} state=present
+  tags: pkg
+
+- name: Get Icinga2 Repos
+  apt_repository: repo={{ item }} state=present
+  with_items: "{{ icweb2_deb_repos }}"
+  tags: pkg
+
+- name: Get Debmon package repo
+  apt_repository: repo={{ icweb2_debmon_apt_repository }} state=present
+
 - name: Update apt-get cache
   apt: update_cache=yes cache_valid_time=86400
   tags: pkg
