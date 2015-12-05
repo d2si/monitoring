@@ -6,4 +6,4 @@
 - name: reload icinga2
   service: name={{ snmpd_ic2_svc_name }} state=reloaded
   delegate_to: "{{ item }}"
-  with_items: "{{ snmpd_ic2_master }}"
+  with_items: "{{ snmpd_ic2_master_hosts }}"
