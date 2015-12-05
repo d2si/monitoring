@@ -46,8 +46,7 @@
   template:
     src: ic2-services-snmp.conf.j2
     dest: "{{ snmpd_ic2_cfg_dirpath }}/global-templates/services-snmp.conf"
-  delegate_to: "{{ item }}"
-  with_items: "{{ snmpd_ic2_master_hosts }}"
+  delegate_to: "{{ snmpd_ic2_master_host }}"
   notify: reload icinga2
   tags: cfg
 
@@ -55,7 +54,6 @@
   template:
     src: ic2-host.conf.j2
     dest: "{{ snmpd_ic2_cfg_dirpath }}/{{ snmpd_ic2_zone }}/host-{{ ansible_hostname }}.conf"
-  delegate_to: "{{ item }}"
-  with_items: "{{ snmpd_ic2_master_hosts }}"
+  delegate_to: "{{ snmpd_ic2_master_host }}"
   notify: reload icinga2
   tags: cfg
