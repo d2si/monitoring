@@ -7,6 +7,12 @@
    - "{{ ansible_os_family }}.yml"
   tags: always
 
+- name: Check that all required variables are set
+  fail: msg="{{ item }} is not set!"
+  when: item is not defined
+  with_items:
+  - snmpd_ic2_master_host
+
 - name: Update apt-get cache
   apt: update_cache=yes cache_valid_time=86400
   when: ansible_os_family == 'Debian'
