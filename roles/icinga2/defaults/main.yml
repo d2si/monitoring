@@ -7,7 +7,6 @@ ic2_pkg_key: http://packages.icinga.org/icinga.key
 ic2_pkgs_name: [ "{{ osvar_pkgs_name }}" ]
 ic2_ca_file: "{{ osvar_ca_file }}"
 ic2_pki_path: "{{ osvar_pki_path }}"
-
 ic2_cfg_path: "{{ osvar_cfg_path }}"
 ic2_cfgd_path: "{{ osvar_cfgd_path }}"
 ic2_svc_name: "{{ osvar_svc_name }}"
@@ -36,12 +35,12 @@ ic2_mysqld_login_user: root
 ic2_mysqld_login_pass: ""
 
 # Icinga features to enable 
-ic2_features: [ "command", "api"]
+ic2_features: [ "api", "command"]
 
-# Set to true for a master (PKI)
+# Set to true for a master
 ic2_is_master: False
 
-# Configure master for satellite nodes
+# Configure master host or satellite nodes
 ic2_master: ""
 
 # /etc/icinga2/icinga2.conf

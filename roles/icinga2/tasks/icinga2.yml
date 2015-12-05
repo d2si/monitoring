@@ -7,7 +7,7 @@
 
 - include: pki.yml
 
-- name:  Activate Icinga2 command feature
+- name:  Activate Icinga2 features
   command: "icinga2 feature enable {{ item }}"
   register: ic2_feature_result
   changed_when: "'for these changes to take effect' in ic2_feature_result.stdout"
@@ -31,7 +31,7 @@
   notify: restart icinga2
   tags: cfg
 
-- name: Create Global directory
+- name: Create the global-templates directory
   file: path="{{ ic2_cfgd_path }}/global-templates" state=directory
   tags: cfg
 
