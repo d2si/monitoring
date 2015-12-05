@@ -1,24 +1,33 @@
 ---
 
+################################################################################
+# OS-specific variables (from vars/)
+################################################################################
+
 icweb2_deb_repos: [ "{{ osvar_deb_repos }}" ]
 icweb2_debmon_apt_key: "{{ osvar_debmon_apt_key }}"
 icweb2_debmon_apt_repository: "{{ osvar_debmon_apt_repository }}"
-icweb2_pkg_key: http://packages.icinga.org/icinga.key
-icweb2_httpd_svc_name: "{{ osvar_httpd_svc_name }}"
 icweb2_httpd_user: "{{ osvar_httpd_user }}"
-icweb2_pkgs_name: "{{ osvar_pkgs_name }}"
-icweb2_php_ini_path: "{{ osvar_php_ini_path }}"
-icweb2_mysqld_schema: "{{ osvar_mysqld_schema }}"
+icweb2_httpd_svc_name: "{{ osvar_httpd_svc_name }}"
 icweb2_mysqld_pkg_name: "{{ osvar_mysqld_pkg_name }}"
+icweb2_mysqld_schema: "{{ osvar_mysqld_schema }}"
 icweb2_mysqld_svc_name: "{{ osvar_mysqld_svc_name }}"
+icweb2_php_ini_path: "{{ osvar_php_ini_path }}"
+icweb2_pkg_key: http://packages.icinga.org/icinga.key
+icweb2_pkgs_name: "{{ osvar_pkgs_name }}"
+
+################################################################################
+# misc variables
+################################################################################
+
 icweb2_mysqld_svc_enabled: yes
 icweb2_mysqld_svc_state: started
 
-#
-# most useful user variables
-#
+################################################################################
+# most useful variables for personalized playbooks
+################################################################################
 
-# DB name, user and password
+# DB name, user and password to create
 icweb2_mysqld_db_name: icingaweb2
 icweb2_mysqld_db_pass: icingaweb2
 icweb2_mysqld_db_user: icingaweb2

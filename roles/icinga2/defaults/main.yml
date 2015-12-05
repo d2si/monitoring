@@ -1,29 +1,38 @@
 ---
 
+################################################################################
+# OS-specific variables (from vars/)
+################################################################################
+
+ic2_ca_file: "{{ osvar_ca_file }}"
+ic2_cfg_path: "{{ osvar_cfg_path }}"
+ic2_cfgd_path: "{{ osvar_cfgd_path }}"
 ic2_deb_repos: [ "{{ osvar_deb_repos }}" ]
 ic2_debmon_apt_key: "{{ osvar_debmon_apt_key }}"
 ic2_debmon_apt_repository: "{{ osvar_debmon_apt_repository }}"
-ic2_pkg_key: http://packages.icinga.org/icinga.key
-ic2_pkgs_name: [ "{{ osvar_pkgs_name }}" ]
-ic2_ca_file: "{{ osvar_ca_file }}"
-ic2_pki_path: "{{ osvar_pki_path }}"
-ic2_cfg_path: "{{ osvar_cfg_path }}"
-ic2_cfgd_path: "{{ osvar_cfgd_path }}"
-ic2_svc_name: "{{ osvar_svc_name }}"
-ic2_svc_enabled: yes
-ic2_svc_state: started
 ic2_mysqld_schema: "{{ osvar_mysqld_schema }}"
 ic2_mysqld_ido_cfg: "{{ osvar_mysqld_ido_cfg }}"
 ic2_mysqld_pkg_name: "{{ osvar_mysqld_pkg_name }}"
 ic2_mysqld_svc_name: "{{ osvar_mysqld_svc_name }}"
+ic2_pki_path: "{{ osvar_pki_path }}"
+ic2_pkgs_name: [ "{{ osvar_pkgs_name }}" ]
+ic2_svc_name: "{{ osvar_svc_name }}"
+
+################################################################################
+# misc variables
+################################################################################
+
 ic2_mysqld_svc_enabled: yes
 ic2_mysqld_svc_state: started
+ic2_svc_enabled: yes
+ic2_svc_state: started
+ic2_pkg_key: http://packages.icinga.org/icinga.key
 
-#
-# most useful user variables
-#
+################################################################################
+# most useful variables for personalized playbooks
+################################################################################
 
-# DB name, user and password
+# DB name, user and password to create
 ic2_mysqld_db_name: icinga2
 ic2_mysqld_db_pass: icinga2
 ic2_mysqld_db_user: icinga2
@@ -37,10 +46,10 @@ ic2_mysqld_login_pass: ""
 # Icinga features to enable 
 ic2_features: [ "api", "command"]
 
-# Set to true for a master
+# set to true for a master
 ic2_is_master: False
 
-# Configure master host or satellite nodes
+# master host for satellite nodes
 ic2_master: ""
 
 # /etc/icinga2/icinga2.conf
