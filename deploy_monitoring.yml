@@ -1,7 +1,7 @@
 - hosts: Icinga2Master
   roles:
     - role: icinga2
-      ic2_master: 54.171.205.144
+      ic2_master_host: 54.171.205.144
       ic2_is_master: True
       tags: icinga2
 
@@ -15,7 +15,7 @@
   roles:
 
     - role: snmpd
-      snmpd_ic2_master: ['54.171.205.144']
+      snmpd_ic2_master_hosts: ['54.171.205.144']
       snmpd_cfg_rocommunity: oxalide
       snmpd_cfg_syslocation: oxalide
       snmpd_cfg_syscontact: report@oxalide.com

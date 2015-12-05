@@ -18,17 +18,17 @@
 
 - name: Create host CSR
   command: icinga2 pki new-cert --cn "{{ ansible_hostname }}" --key "{{ ic2_pki_path }}/{{ ansible_hostname }}.key" --csr "{{ ic2_pki_path }}/{{ ansible_hostname }}.csr"
-  delegate_to: "{{ ic2_master }}" 
+  delegate_to: "{{ ic2_master_host }}" 
   when: not crt_file.stat.exists
 
 - name: Sign host certificate with CA
   command: icinga2 pki sign-csr --csr "{{ ic2_pki_path }}/{{ ansible_hostname }}.csr" --cert "{{ ic2_pki_path }}/{{ ansible_hostname }}.crt"
-  delegate_to: "{{ ic2_master }}" 
+  delegate_to: "{{ ic2_master_host }}" 
   when: not crt_file.stat.exists
 
 - name: Fetch certificate and key from master
   fetch: src="{ ic2_pki_path }}/{{ ansible_hostname }}.{{ item }}" dest="/tmp/{{ ansible_hostname }}.{{ item }}"
-  delegate_to: "{{ ic2_master }}" 
+  delegate_to: "{{ ic2_master_host }}" 
   when: (ic2_is_master == False) and (not crt_file.stat.exists)
 
 - name: Upload certificate and key

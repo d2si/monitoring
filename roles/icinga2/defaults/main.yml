@@ -50,7 +50,7 @@ ic2_features: [ "api", "command"]
 ic2_is_master: False
 
 # master host for satellite nodes
-ic2_master: ""
+ic2_master_host: ""
 
 # /etc/icinga2/icinga2.conf
 ic2_cfg_content: |
