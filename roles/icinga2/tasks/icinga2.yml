@@ -60,9 +60,8 @@
   tags: cfg
 
 - name: Configure Icinga2 zones and endpoints
-  template: src=zones.d.conf.j2
-            dest={{ ic2_cfg_dir }}/zones.d/{{ ansible_hostname }}-zones.conf
-  delegate_to: "{{ ic2_master_host }}"
+  template: src=hostname-zones.conf.j2
+            dest={{ ic2_cfg_dir }}/{{ ansible_hostname }}-zones.conf
   notify: restart icinga2
   tags: cfg
 

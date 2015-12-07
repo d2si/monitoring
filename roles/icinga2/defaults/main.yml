@@ -54,6 +54,7 @@ ic2_master_host: ""
 # /etc/icinga2/icinga2.conf
 ic2_cfg_content: |
   include "constants.conf"
+  include "*zones.conf"
   include <itl>
   include <plugins>
   include "features-enabled/*.conf"
