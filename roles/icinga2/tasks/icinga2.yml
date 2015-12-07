@@ -1,5 +1,10 @@
 ---
 
+- name: Get local configuration subdirectory
+  set_fact:
+    local_subdir: master
+    when: ic2_is_master == True
+
 - name: Install the Icinga2 packages
   package: name={{ item }} state=latest
   with_items: "{{ ic2_pkgs_name }}"
@@ -22,22 +27,48 @@
     enabled: "{{ ic2_svc_enabled }}"
   tags: svc
 
+- name: Create the configuration directories
+  file: path="{{ ic2_cfg_dir }}/zones.d/{{ item }}/" state=directory
+  with_items:
+    - global-templates
+    - master
+    - satellite
+  tags: cfg
+
 - name: Configure Icinga2 (main configuration)
-  template: src=icinga2.conf.j2
-            dest={{ ic2_cfg_path }}
-            owner=0
-            group=0
-            mode=0644
+  template: src={{ item }}.j2
+            dest={{ ic2_cfg_dir }}/{{ item }}
+  with_items:
+    - constants.conf
+    - icinga2.conf
+    - zones.conf
   notify: restart icinga2
   tags: cfg
 
-- name: Create the global-templates directory
-  file: path="{{ ic2_cfgd_path }}/global-templates" state=directory
+- name: Configure Icinga2 master local configuration
+  template: src=local.conf.j2
+            dest={{ ic2_cfg_dir }}/zones.d/master/local.conf
+  when: ic2_is_master == True
+  notify: restart icinga2
+  tags: cfg
+
+- name: Configure Icinga2 satellite local configuration
+  template: src=local.conf.j2
+            dest={{ ic2_cfg_dir }}/zones.d/satellite/local.conf
+  when: ic2_is_master == False
+  notify: restart icinga2
+  tags: cfg
+
+- name: Configure Icinga2 zones and endpoints
+  template: src=zones.d.conf.j2
+            dest={{ ic2_cfg_dir }}/zones.d/{{ ansible_hostname }}-zones.conf
+  delegate_to: "{{ ic2_master_host }}"
+  notify: restart icinga2
   tags: cfg
 
 - name: Copy global template files
   template: src="global-templates/{{ item }}.conf.j2"
-            dest="{{ ic2_cfgd_path }}/global-templates/{{ item }}.conf"
+            dest="{{ ic2_cfg_dir }}/zones.d/global-templates/{{ item }}.conf"
   with_items:
     - "apt"
     - "check_commands"

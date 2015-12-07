@@ -5,8 +5,7 @@
 ################################################################################
 
 ic2_ca_file: "{{ osvar_ca_file }}"
-ic2_cfg_path: "{{ osvar_cfg_path }}"
-ic2_cfgd_path: "{{ osvar_cfgd_path }}"
+ic2_cfg_dir: "{{ osvar_cfg_dir }}"
 ic2_deb_repos: [ "{{ osvar_deb_repos }}" ]
 ic2_debmon_apt_key: "{{ osvar_debmon_apt_key }}"
 ic2_debmon_apt_repository: "{{ osvar_debmon_apt_repository }}"
@@ -55,7 +54,6 @@ ic2_master_host: ""
 # /etc/icinga2/icinga2.conf
 ic2_cfg_content: |
   include "constants.conf"
-  include "zones.conf"
   include <itl>
   include <plugins>
   include "features-enabled/*.conf"

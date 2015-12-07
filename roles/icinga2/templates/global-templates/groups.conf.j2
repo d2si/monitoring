@@ -1,3 +1,5 @@
+/* {{ ansible_managed }} */
+
 object HostGroup "linux-servers" {
   display_name = "Linux Servers"
   assign where host.vars.os == "Linux"
