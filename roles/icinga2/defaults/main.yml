@@ -10,7 +10,6 @@ ic2_deb_repos: [ "{{ osvar_deb_repos }}" ]
 ic2_debmon_apt_key: "{{ osvar_debmon_apt_key }}"
 ic2_debmon_apt_repository: "{{ osvar_debmon_apt_repository }}"
 ic2_mysqld_schema: "{{ osvar_mysqld_schema }}"
-ic2_mysqld_ido_cfg: "{{ osvar_mysqld_ido_cfg }}"
 ic2_mysqld_pkg_name: "{{ osvar_mysqld_pkg_name }}"
 ic2_mysqld_svc_name: "{{ osvar_mysqld_svc_name }}"
 ic2_pki_path: "{{ osvar_pki_path }}"
@@ -47,6 +46,9 @@ ic2_features: [ "api", "command"]
 
 # set to true for a master
 ic2_is_master: False
+
+# Icinga2 master FQDN
+ic2_master_fqdn: ""
 
 # Icinga2 master server (for satellite nodes)
 ic2_master_host: ""

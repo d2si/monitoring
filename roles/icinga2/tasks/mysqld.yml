@@ -42,8 +42,8 @@
   tags: cfg
 
 - name: Configure Icinga2 IDO MySQL feature
-  template: src=ido-mysql.conf.j2
-            dest={{ ic2_mysqld_ido_cfg }}
+  template: src=features-available/ido-mysql.conf.j2
+            dest={{ ic2_cfg_dir }}/features-available/ido-mysql.conf
             owner=nagios
             group=nagios
             mode=0640

@@ -1,5 +1,13 @@
 /* {{ ansible_managed }} */
 
+object Zone "master" {
+  endpoints = [ "{{ ic2_master_fqdn }}" ]
+}
+
+object Endpoint "{{ ic2_master_fqdn }}" {
+  host = "{{ ic2_master_ip }}"
+}
+
 object Zone "global-templates" {
   global = true
 }

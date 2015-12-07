@@ -1,0 +1,10 @@
+/* {{ ansible_managed }} */
+
+object Zone "satellite" {
+  parent = "master"
+  endpoints = [ "{{ ansible_fqdn }}" ]
+}
+
+object Endpoint "{{ ansible_fqdn }}" {
+  host = "{{ ansible_default_ipv4.address }}"
+}

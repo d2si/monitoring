@@ -1,14 +1,22 @@
+---
+
+# XXX find a better way to handle ic2_master_fqdn and ic2_master_ip
+
 - hosts: Icinga2Master
   roles:
     - role: icinga2
+      ic2_master_fqdn: ip-10-200-0-248
       ic2_master_host: 52.30.115.137
+      ic2_master_ip: 10.200.0.248
       ic2_is_master: True
       tags: icinga2
 
 - hosts: Icinga2Satellite
   roles:
     - role: icinga2
+      ic2_master_fqdn: ip-10-200-0-248
       ic2_master_host: 52.30.115.137
+      ic2_master_ip: 10.200.0.248
       tags: icinga2
 
 - hosts: Icinga2Web

@@ -8,6 +8,8 @@
   fail: msg="{{ item }} is not set!"
   when: item is not defined
   with_items:
+  - ic2_master_fqdn
+  - ic2_master_ip
   - ic2_master_host
 
 - include: "{{ ansible_os_family }}.yml"
