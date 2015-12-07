@@ -34,7 +34,7 @@ snmpd_cfg_syscontact: Me <me@example.org>
 # SNMP checks
 snmpd_ic2_checks: []
 
-# Icinga2 master server
+# Icinga2 master server (can be a satellite)
 snmpd_ic2_master_host: ""
 
 # Icinga2 satellite zone
