@@ -10,13 +10,29 @@
         image: ami-e31a6594
         wait: no
         group: epiconcept
-        count: 2
+        count: 1
         vpc_subnet_id: subnet-68a77031
         assign_public_ip: yes
         region: eu-west-1
         instance_tags:
-            Role: MonitoringServer
-            Name: IcingaServer
+            Role: Icinga2Master
+            Name: Icinga2Master
+
+    - ec2:
+        aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+        aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+        key_name: aws-dev
+        instance_type: t2.small
+        image: ami-e31a6594
+        wait: no
+        group: epiconcept
+        count: 1
+        vpc_subnet_id: subnet-68a77031
+        assign_public_ip: yes
+        region: eu-west-1
+        instance_tags:
+            Role: Icinga2Satellite
+            Name: Icinga2Satellite
 
     - ec2:
         aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
@@ -27,11 +43,10 @@
         wait: no
         groups:
             - epiconcept
-            - epiconcept-snmp
-        count: 3
+        count: 1
         vpc_subnet_id: subnet-68a77031
         assign_public_ip: yes
         region: eu-west-1
         instance_tags:
-            Role: MonitoredServer
-            Name: Agent
+            Role: Icinga2Agent
+            Name: Icinga2Agent
