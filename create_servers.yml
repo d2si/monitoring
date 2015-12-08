@@ -43,7 +43,7 @@
         wait: no
         groups:
             - epiconcept
-        count: 1
+        count: 3
         vpc_subnet_id: subnet-68a77031
         assign_public_ip: yes
         region: eu-west-1

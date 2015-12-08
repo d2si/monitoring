@@ -2,13 +2,20 @@
 
 [tag_Role_Icinga2Satellite]
 
+[tag_Role_Icinga2Web]
+
 [tag_Role_Icinga2Agent]
+
 
 [Icinga2Master:children]
 tag_Role_Icinga2Master
 
 [Icinga2Satellite:children]
 tag_Role_Icinga2Satellite
+
+[Icinga2Web:children]
+tag_Role_Icinga2Satellite
+tag_Role_Icinga2Master
 
 [Icinga2Agent:children]
 tag_Role_Icinga2Agent
