@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+/* {{ ansible_managed }} */
 
 {% for check in snmpd_ic2_checks %}
 apply Service "{{ check.name }}" {

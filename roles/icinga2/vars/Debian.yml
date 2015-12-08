@@ -7,7 +7,7 @@ osvar_debmon_apt_key: http://debmon.org/debmon/repo.key
 osvar_debmon_apt_repository: deb http://debmon.org/debmon debmon-{{ ansible_distribution_release }} main
 
 osvar_cfg_dir: /etc/icinga2
-osvar_ca_file: /var/lib/icinga2/ca/ca.crt
+osvar_ca_dir: /var/lib/icinga2/ca
 osvar_pki_path: "{{ osvar_cfg_dir }}/pki"
 
 osvar_pkgs_name:

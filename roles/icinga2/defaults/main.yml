@@ -4,7 +4,7 @@
 # OS-specific variables (from vars/)
 ################################################################################
 
-ic2_ca_file: "{{ osvar_ca_file }}"
+ic2_ca_dir: "{{ osvar_ca_dir }}"
 ic2_cfg_dir: "{{ osvar_cfg_dir }}"
 ic2_deb_repos: [ "{{ osvar_deb_repos }}" ]
 ic2_debmon_apt_key: "{{ osvar_debmon_apt_key }}"
