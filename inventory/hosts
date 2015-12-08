@@ -1,9 +1,14 @@
-[tag_Role_MonitoringServer]
+[tag_Role_Icinga2Master]
 
-[tag_Role_MonitoredServer]
+[tag_Role_Icinga2Satellite]
 
-[MonitoringServers:children]
-tag_Role_MonitoringServer
+[tag_Role_Icinga2Agent]
 
-[MonitoringAgents:children]
-tag_Role_MonitoredServer
+[Icinga2Master:children]
+tag_Role_Icinga2Master
+
+[Icinga2Satellite:children]
+tag_Role_Icinga2Satellite
+
+[Icinga2Agent:children]
+tag_Role_Icinga2Agent
