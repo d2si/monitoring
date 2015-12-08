@@ -7,6 +7,8 @@ osvar_debmon_apt_key: http://debmon.org/debmon/repo.key
 osvar_debmon_apt_repository: deb http://debmon.org/debmon debmon-{{ ansible_distribution_release }} main
 
 osvar_cfg_dir: /etc/icinga2
+osvar_ca_file: /var/lib/icinga2/ca/ca.crt
+osvar_pki_path: "{{ osvar_cfg_dir }}/pki"
 
 osvar_pkgs_name:
   - icinga2
@@ -22,6 +24,3 @@ osvar_svc_name: icinga2
 osvar_mysqld_schema: /usr/share/icinga2-ido-mysql/schema/mysql.sql
 osvar_mysqld_svc_name: mysql
 osvar_mysqld_pkg_name: mysql-server
-
-osvar_ca_file: /var/lib/icinga2/ca/ca.crt
-osvar_pki_path: /etc/icinga2/pki

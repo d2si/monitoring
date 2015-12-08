@@ -1,0 +1,13 @@
+/* {{ ansible_managed }} */
+
+/**
+ * The API listener is used for distributed monitoring setups.
+ */
+
+object ApiListener "api" {
+  cert_path = "{{ ic2_pki_path }}/" + NodeName + ".crt"
+  key_path = "{{ ic2_pki_path }}/" + NodeName + ".key"
+  ca_path = "{{ ic2_ca_file }}"
+
+  ticket_salt = TicketSalt
+}

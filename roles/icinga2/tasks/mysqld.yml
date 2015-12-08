@@ -41,12 +41,15 @@
   when: ic2_mysqld_db_installed.changed == true
   tags: cfg
 
-- name: Configure Icinga2 IDO MySQL feature
-  template: src=features-available/ido-mysql.conf.j2
-            dest={{ ic2_cfg_dir }}/features-available/ido-mysql.conf
+- name: Configure Icinga2 features
+  template: src=features-available/{{ item }}.conf.j2
+            dest={{ ic2_cfg_dir }}/features-available/{{ item }}.conf
             owner=nagios
             group=nagios
             mode=0640
+  with_items:
+  - api
+  - ido-mysql
   notify: restart icinga2
   tags: cfg
 

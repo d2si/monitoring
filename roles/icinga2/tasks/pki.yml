@@ -3,7 +3,7 @@
 - name: Set permissions on PKI directory
   file: path={{ ic2_pki_path }} state=directory owner=nagios group=nagios mode=0750
 
-- name: Check if master already has CA files
+- name: Check if master already has the CA certificate
   stat: path={{ ic2_ca_file }}
   register: ca_file
   when: ic2_is_master == True
@@ -27,21 +27,21 @@
   when: not crt_file.stat.exists
 
 - name: Fetch CA, certificate and key from master
-  fetch: src="{{ ic2_pki_path }}/{{ item }}"
+  fetch: src="{{ item }}"
          dest="/tmp/"
          flat=yes
   with_items:
-   - ca.crt
-   - "{{ ansible_hostname }}.crt"
-   - "{{ ansible_hostname }}.key"
+   - "{{ ic2_ca_file }}"
+   - "{{ ic2_pki_path }}/{{ ansible_hostname }}.crt"
+   - "{{ ic2_pki_path }}/{{ ansible_hostname }}.key"
   delegate_to: "{{ ic2_master_host }}"
   when: (ic2_is_master == False) and (not crt_file.stat.exists)
 
 - name: Upload certificate and key
   copy: src="/tmp/{{ item }}"
-        dest="{{ ic2_pki_path }}/{{ item }}"
+        dest="{{ item }}"
   with_items:
-   - ca.crt
-   - "{{ ansible_hostname }}.crt"
-   - "{{ ansible_hostname }}.key"
+   - "{{ ic2_ca_file }}"
+   - "{{ ic2_pki_path }}/{{ ansible_hostname }}.crt"
+   - "{{ ic2_pki_path }}/{{ ansible_hostname }}.key"
   when: (ic2_is_master == False) and (not crt_file.stat.exists)
