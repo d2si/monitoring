@@ -1,5 +1,9 @@
 ---
 
+- name: Check that we only have one master
+  fail: msg="Only 1 master (ic2master) is allowed in this role"
+  when: (groups.ic2master[1] is defined)
+
 - name: Get OS-specific variables
   include_vars: "{{ ansible_os_family }}.yml"
   tags: always
