@@ -18,6 +18,7 @@
             login_user={{ ic2_mysqld_login_user }}
             login_password={{ ic2_mysqld_login_pass }}
   register: ic2_mysqld_db_installed
+  tags: cfg
 
 - name: Create Icinga2 database user and configure grants
   mysql_user: name={{ ic2_mysqld_db_user }}

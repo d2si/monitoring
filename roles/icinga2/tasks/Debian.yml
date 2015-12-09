@@ -15,6 +15,7 @@
 
 - name: Get Debmon package repo
   apt_repository: repo={{ ic2_debmon_apt_repository }} state=present
+  tags: pkg
 
 - name: Update apt-get cache
   apt: update_cache=yes cache_valid_time=86400

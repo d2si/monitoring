@@ -12,6 +12,7 @@
   when: item is not defined
   with_items:
   - snmpd_ic2_master
+  tags: always
 
 - name: Update apt-get cache
   apt: update_cache=yes cache_valid_time=86400
@@ -24,6 +25,7 @@
 
 - name: Create the SNMP scripts directory
   file: path=/usr/local/bin/scripts state=directory owner=0 group=0 mode=0755
+  tags: cfg
 
 - name: Install SNMP scripts
   copy: src=files/{{ item }} dest=/usr/local/bin/scripts/{{ item }} owner=0 group=0 mode=0555

@@ -8,6 +8,7 @@
 - name: Add web server user to the Icingaweb2 group
   user: name={{ icweb2_httpd_user}} groups=icingaweb2 append=yes
   notify: restart httpd
+  tags: cfg
 
 - name: Set php.ini timezone
   lineinfile:  dest={{ icweb2_php_ini_path }}

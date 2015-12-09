@@ -2,33 +2,40 @@
 
 - name: Set permissions on PKI directory
   file: path={{ ic2_pki_path }} state=directory owner=nagios group=nagios mode=0750
+  tags: cfg
 
 - name: Check if master already has the CA certificate
   stat: path={{ ic2_ca_dir }}/ca.crt
   register: ca_file
   when: ic2_is_master == True
+  tags: cfg
 
 - name: Create CA on master
   command: icinga2 pki new-ca
   when: (ic2_is_master == True) and (not ca_file.stat.exists)
+  tags: cfg
 
 - name: Check if host already has a certificate
   stat: path="{{ ic2_pki_path }}/{{ ansible_hostname }}.crt"
   register: crt_file
+  tags: cfg
 
 - name: Create host CSR
   command: icinga2 pki new-cert --cn {{ ansible_hostname }} --key "{{ ic2_pki_path }}/{{ ansible_hostname }}.key" --csr "{{ ic2_pki_path }}/{{ ansible_hostname }}.csr"
   delegate_to: "{{ groups.ic2master[0] }}"
   when: not crt_file.stat.exists
+  tags: cfg
 
 - name: Sign host certificate with CA
   command: icinga2 pki sign-csr --csr "{{ ic2_pki_path }}/{{ ansible_hostname }}.csr" --cert "{{ ic2_pki_path }}/{{ ansible_hostname }}.crt"
   delegate_to: "{{ groups.ic2master[0] }}"
   when: not crt_file.stat.exists
+  tags: cfg
 
 - name: Create CA directory on the satellite
   file: path={{ ic2_ca_dir }} state=directory owner=nagios group=nagios mode=0700
   when: ic2_is_master == False
+  tags: cfg
 
 - name: Fetch CA, certificate and key from master
   fetch: src={{ item }} dest=/tmp/ flat=yes
@@ -37,10 +44,12 @@
    - "{{ ic2_pki_path }}/{{ ansible_hostname }}.crt"
    - "{{ ic2_pki_path }}/{{ ansible_hostname }}.key"
   delegate_to: "{{ groups.ic2master[0] }}"
+  tags: cfg
 
 - name: Upload CA certificate
   copy: src=/tmp/ca.crt dest={{ ic2_ca_dir }}/ca.crt
   when: ic2_is_master == False
+  tags: cfg
 
 - name: Upload certificate and key
   copy: src=/tmp/{{ item }}
@@ -49,3 +58,4 @@
    - "{{ ansible_hostname }}.crt"
    - "{{ ansible_hostname }}.key"
   when: ic2_is_master == False
+  tags: cfg
