@@ -11,7 +11,7 @@
   fail: msg="{{ item }} is not set!"
   when: item is not defined
   with_items:
-  - snmpd_ic2_master_host
+  - snmpd_ic2_master
 
 - name: Update apt-get cache
   apt: update_cache=yes cache_valid_time=86400
@@ -48,11 +48,11 @@
     enabled: "{{ snmpd_svc_enabled }}"
   tags: svc
 
-- name: Add SNMP service configuration to the Icinga server(s)
+- name: Add SNMP service configuration to the Icinga server
   template:
     src: ic2-services-snmp.conf.j2
     dest: "{{ snmpd_ic2_cfg_dirpath }}/global-templates/services-snmp.conf"
-  delegate_to: "{{ snmpd_ic2_master_host }}"
+  delegate_to: "{{ snmpd_ic2_master }}"
   notify: reload icinga2
   tags: cfg
 
@@ -60,6 +60,6 @@
   template:
     src: ic2-host.conf.j2
     dest: "{{ snmpd_ic2_cfg_dirpath }}/{{ snmpd_ic2_zone }}/host-{{ ansible_hostname }}.conf"
-  delegate_to: "{{ snmpd_ic2_master_host }}"
+  delegate_to: "{{ snmpd_ic2_master }}"
   notify: reload icinga2
   tags: cfg

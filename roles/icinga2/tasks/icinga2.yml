@@ -35,7 +35,7 @@
   template: src=zones.d/satellite/local.conf.j2
             dest={{ ic2_cfg_dir }}/zones.d/satellite/local.conf
   when: ic2_is_master == False
-  delegate_to: "{{ ic2_master_host }}"
+  delegate_to: "{{ groups.ic2master[0] }}"
   notify: restart icinga2
   tags: cfg
 
@@ -50,7 +50,7 @@
   template: src=satellite-zones.conf.j2
             dest={{ ic2_cfg_dir }}/{{ ansible_hostname }}-zones.conf
   when: ic2_is_master == False
-  delegate_to: "{{ ic2_master_host }}"
+  delegate_to: "{{ groups.ic2master[0] }}"
   notify: restart icinga2
   tags: cfg
 

@@ -1,21 +1,21 @@
-[tag_Role_Icinga2Master]
+[tag_Role_ic2master]
 
-[tag_Role_Icinga2Satellite]
+[tag_Role_ic2sat]
 
-[tag_Role_Icinga2Web]
+[tag_Role_ic2web]
 
-[tag_Role_Icinga2Agent]
+[tag_Role_ic2node]
 
 
-[Icinga2Master:children]
-tag_Role_Icinga2Master
+[ic2master:children]
+tag_Role_ic2master
 
-[Icinga2Satellite:children]
-tag_Role_Icinga2Satellite
+[ic2sat:children]
+tag_Role_ic2sat
 
-[Icinga2Web:children]
-tag_Role_Icinga2Satellite
-tag_Role_Icinga2Master
+[ic2web:children]
+tag_Role_ic2sat
+tag_Role_ic2master
 
-[Icinga2Agent:children]
-tag_Role_Icinga2Agent
+[ic2node:children]
+tag_Role_ic2node

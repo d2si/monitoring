@@ -1,11 +1,11 @@
 /* {{ ansible_managed }} */
 
 object Zone "master" {
-  endpoints = [ "{{ ic2_master_fqdn }}" ]
+  endpoints = [ "{{ hostvars[groups['ic2master'][0]]['ansible_fqdn'] }}" ]
 }
 
-object Endpoint "{{ ic2_master_fqdn }}" {
-  host = "{{ ic2_master_ip }}"
+object Endpoint "{{ hostvars[groups['ic2master'][0]]['ansible_fqdn'] }}" {
+  host = "{{ hostvars[groups['ic2master'][0]]['ansible_default_ipv4']['address'] }}"
 }
 
 object Zone "global-templates" {

@@ -18,12 +18,12 @@
 
 - name: Create host CSR
   command: icinga2 pki new-cert --cn {{ ansible_hostname }} --key "{{ ic2_pki_path }}/{{ ansible_hostname }}.key" --csr "{{ ic2_pki_path }}/{{ ansible_hostname }}.csr"
-  delegate_to: "{{ ic2_master_host }}"
+  delegate_to: "{{ groups.ic2master[0] }}"
   when: not crt_file.stat.exists
 
 - name: Sign host certificate with CA
   command: icinga2 pki sign-csr --csr "{{ ic2_pki_path }}/{{ ansible_hostname }}.csr" --cert "{{ ic2_pki_path }}/{{ ansible_hostname }}.crt"
-  delegate_to: "{{ ic2_master_host }}"
+  delegate_to: "{{ groups.ic2master[0] }}"
   when: not crt_file.stat.exists
 
 - name: Create CA directory on the satellite
@@ -36,8 +36,7 @@
    - "{{ ic2_ca_dir }}/ca.crt"
    - "{{ ic2_pki_path }}/{{ ansible_hostname }}.crt"
    - "{{ ic2_pki_path }}/{{ ansible_hostname }}.key"
-  delegate_to: "{{ ic2_master_host }}"
-  when: ic2_is_master == False
+  delegate_to: "{{ groups.ic2master[0] }}"
 
 - name: Upload CA certificate
   copy: src=/tmp/ca.crt dest={{ ic2_ca_dir }}/ca.crt

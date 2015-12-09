@@ -1,37 +1,30 @@
 ---
 
-# XXX find a better way to handle ic2_master_fqdn and ic2_master_ip
-
-- hosts: Icinga2Master
+- hosts: ic2master
   roles:
     - role: icinga2
-      ic2_master_fqdn: ip-10-200-0-17
-      ic2_master_host: 54.171.142.221
-      ic2_master_ip: 10.200.0.17
+      tags: ic2master
       ic2_is_master: True
-      tags: icinga2
 
-- hosts: Icinga2Satellite
+- hosts: ic2sat
   roles:
     - role: icinga2
-      ic2_master_fqdn: ip-10-200-0-17
-      ic2_master_host: 54.171.142.221
-      ic2_master_ip: 10.200.0.17
-      tags: icinga2
+      tags: ic2sat
 
-- hosts: Icinga2Web
+- hosts: ic2web
   roles:
     - role: icingaweb2
-      tags: icingaweb2
+      tags: ic2web
 
-- hosts: Icinga2Agent
+- hosts: ic2node
   roles:
     - role: snmpd
-      snmpd_ic2_zone: satellite
-      snmpd_ic2_master_host: 54.171.142.221
+      tags: ic2node
       snmpd_cfg_rocommunity: oxalide
       snmpd_cfg_syslocation: oxalide
       snmpd_cfg_syscontact: report@oxalide.com
+      snmpd_ic2_master: 52.19.153.245
+      snmpd_ic2_zone: satellite
       snmpd_ic2_checks:
         - {name: "uptime", oid: "1.3.6.1.2.1.1.3.0" }
         - {name: "cpu-load-1m", oid: "1.3.6.1.4.1.2021.10.1.3.1", warn: "{{ ansible_processor_vcpus * 2 + 1 }}", crit: "{{ ansible_processor_vcpus * 3 }}" }
@@ -44,4 +37,3 @@
         - {name: "mem-total", oid: "1.3.6.1.4.1.2021.4.5.0" }
         - {name: "mem-free", oid: "1.3.6.1.4.1.2021.4.6.0" }
         - {name: "fd-count", oid: "1.3.6.1.4.1.2021.42001.45.0", warn: "1024", crit: "4096" }
-      tags: snmpd

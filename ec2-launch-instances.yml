@@ -15,7 +15,7 @@
         assign_public_ip: yes
         region: eu-west-1
         instance_tags:
-            Role: Icinga2Master
+            Role: ic2master
             Name: Icinga2Master
 
     - ec2:
@@ -31,7 +31,7 @@
         assign_public_ip: yes
         region: eu-west-1
         instance_tags:
-            Role: Icinga2Satellite
+            Role: ic2sat
             Name: Icinga2Satellite
 
     - ec2:
@@ -48,5 +48,5 @@
         assign_public_ip: yes
         region: eu-west-1
         instance_tags:
-            Role: Icinga2Agent
+            Role: ic2node
             Name: Icinga2Agent
