@@ -1,5 +1,12 @@
 ---
 
+- name: Check that all required variables are set
+  fail: msg="{{ item }} is not set!"
+  when: item is not defined
+  with_items:
+  - groups.ic2master[0]
+  tags: always
+
 - name: Check that we only have one master
   fail: msg="Only 1 master (ic2master) is allowed in this role"
   when: (groups.ic2master[1] is defined)

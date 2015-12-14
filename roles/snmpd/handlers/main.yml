@@ -5,4 +5,4 @@
 
 - name: reload icinga2
   service: name={{ snmpd_ic2_svc_name }} state=reloaded
-  delegate_to: "{{ snmpd_ic2_master }}"
+  delegate_to: "{{ groups.ic2master[0] }}"

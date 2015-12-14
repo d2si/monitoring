@@ -1,17 +1,17 @@
 ---
 
+- name: Check that all required variables are set
+  fail: msg="{{ item }} is not set!"
+  when: item is not defined
+  with_items:
+  - groups.ic2master[0]
+  tags: always
+
 - name: Get OS-specific variables
   include_vars: "{{ item }}"
   with_first_found:
    - "{{ ansible_distribution }}.yml"
    - "{{ ansible_os_family }}.yml"
-  tags: always
-
-- name: Check that all required variables are set
-  fail: msg="{{ item }} is not set!"
-  when: item is not defined
-  with_items:
-  - snmpd_ic2_master
   tags: always
 
 - name: Update apt-get cache
@@ -54,7 +54,7 @@
   template:
     src: ic2-services-snmp.conf.j2
     dest: "{{ snmpd_ic2_cfg_dirpath }}/global-templates/services-snmp.conf"
-  delegate_to: "{{ snmpd_ic2_master }}"
+  delegate_to: "{{ groups.ic2master[0] }}"
   notify: reload icinga2
   tags: cfg
 
@@ -62,6 +62,6 @@
   template:
     src: ic2-host.conf.j2
     dest: "{{ snmpd_ic2_cfg_dirpath }}/{{ snmpd_ic2_zone }}/host-{{ ansible_hostname }}.conf"
-  delegate_to: "{{ snmpd_ic2_master }}"
+  delegate_to: "{{ groups.ic2master[0] }}"
   notify: reload icinga2
   tags: cfg
