@@ -4,7 +4,6 @@
   roles:
     - role: icinga2
       tags: ic2master
-      ic2_is_master: True
 
 - hosts: ic2sat
   roles:

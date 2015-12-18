@@ -1,9 +1,9 @@
 ---
 
-#- name:
-#  set_fact: is_master=True
-#  when: ({{ hostvars[groups['ic2master'][0]]['ansible_fqdn'] }} == {{ ansible_fqdn }}) or
-#        ({{ hostvars[groups['ic2master'][0]]['ansible_default_ipv4']['address'] }} == {{ ansible_default_ipv4.address }})
+- name:
+  set_fact: is_master=True
+  with_items: groups['ic2master']
+  when: hostvars[groups['ic2master'][0]]['ansible_fqdn'] == ansible_fqdn
 
 - name: Install the Icinga2 packages
   package: name={{ item }} state=latest
@@ -26,20 +26,20 @@
     - zones.d/global-templates
     - zones.d/master
     - zones.d/satellite
-  when: ic2_is_master == True
+  when: is_master == True
   tags: cfg
 
 - name: Configure Icinga2 master zone
   template: src=zones.d/master/local.conf.j2
             dest={{ ic2_cfg_dir }}/zones.d/master/local.conf
-  when: ic2_is_master == True
+  when: is_master == True
   notify: restart icinga2
   tags: cfg
 
 - name: Configure Icinga2 satellite host zone
   template: src=zones.d/satellite/local.conf.j2
             dest={{ ic2_cfg_dir }}/zones.d/satellite/local.conf
-  when: ic2_is_master == False
+  when: is_master == False
   delegate_to: "{{ groups.ic2master[0] }}"
   notify: restart icinga2
   tags: cfg
@@ -47,14 +47,14 @@
 - name: Configure Icinga2 zones and endpoints (locally)
   template: src=satellite-zones.conf.j2
             dest={{ ic2_cfg_dir }}/{{ ansible_hostname }}-zones.conf
-  when: ic2_is_master == False
+  when: is_master == False
   notify: restart icinga2
   tags: cfg
 
 - name: Configure Icinga2 zones and endpoints (on the master)
   template: src=satellite-zones.conf.j2
             dest={{ ic2_cfg_dir }}/{{ ansible_hostname }}-zones.conf
-  when: ic2_is_master == False
+  when: is_master == False
   delegate_to: "{{ groups.ic2master[0] }}"
   notify: restart icinga2
   tags: cfg
@@ -82,7 +82,7 @@
     - zones.d/global-templates/templates.conf
     - zones.d/global-templates/timeperiods.conf
     - zones.d/global-templates/users.conf
-  when: ic2_is_master == True
+  when: is_master == True
   notify: restart icinga2
   tags: cfg
 

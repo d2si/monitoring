@@ -44,9 +44,6 @@ ic2_mysqld_login_pass: ""
 # Icinga features to enable 
 ic2_features: [ "api", "command" ]
 
-# set to true for a master
-ic2_is_master: False
-
 # /etc/icinga2/icinga2.conf
 ic2_cfg_content: |
   include "constants.conf"
