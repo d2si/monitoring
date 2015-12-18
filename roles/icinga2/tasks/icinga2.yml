@@ -2,7 +2,7 @@
 
 #- name:
 #  set_fact: is_master=True
-#  when: ({{ hostvars[groups['ic2master'][0]]['ansible_fqdn'] }} == {{ ansible_fqdn }}) or 
+#  when: ({{ hostvars[groups['ic2master'][0]]['ansible_fqdn'] }} == {{ ansible_fqdn }}) or
 #        ({{ hostvars[groups['ic2master'][0]]['ansible_default_ipv4']['address'] }} == {{ ansible_default_ipv4.address }})
 
 - name: Install the Icinga2 packages
