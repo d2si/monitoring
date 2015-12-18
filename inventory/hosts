@@ -1,21 +1,38 @@
 [tag_Role_ic2master]
 
-[tag_Role_ic2sat]
+[tag_Role_ic2sat1]
+
+[tag_Role_ic2sat2]
 
 [tag_Role_ic2web]
 
-[tag_Role_ic2node]
+[tag_Role_ic2node1]
+
+[tag_Role_ic2node2]
+
+
+[tag_Role_ic2sat2:vars]
+ic2_zone=satellite2
+
+[tag_Role_ic2node1:vars]
+snmpd_ic2_zone=satellite
+
+[tag_Role_ic2node2:vars]
+snmpd_ic2_zone=satellite2
 
 
 [ic2master:children]
 tag_Role_ic2master
 
 [ic2sat:children]
-tag_Role_ic2sat
+tag_Role_ic2sat1
+tag_Role_ic2sat2
 
 [ic2web:children]
-tag_Role_ic2sat
+tag_Role_ic2sat1
+tag_Role_ic2sat2
 tag_Role_ic2master
 
 [ic2node:children]
-tag_Role_ic2node
+tag_Role_ic2node1
+tag_Role_ic2node2

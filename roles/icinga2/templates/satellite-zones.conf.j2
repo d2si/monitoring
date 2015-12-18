@@ -1,6 +1,6 @@
 /* {{ ansible_managed }} */
 
-object Zone "satellite" {
+object Zone "{{ ic2_zone }}" {
   parent = "master"
   endpoints = [ "{{ ansible_fqdn }}" ]
 }

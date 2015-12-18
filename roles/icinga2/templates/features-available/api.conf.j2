@@ -9,7 +9,7 @@ object ApiListener "api" {
   key_path = "{{ ic2_pki_path }}/" + NodeName + ".key"
   ca_path = "{{ ic2_ca_dir }}/ca.crt"
   ticket_salt = TicketSalt
-{% if is_master == False %}
+{% if is_master is undefined %}
   accept_commands = true
   accept_config = true
 {% endif %}

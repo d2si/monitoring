@@ -44,6 +44,9 @@ ic2_mysqld_login_pass: ""
 # Icinga features to enable 
 ic2_features: [ "api", "command" ]
 
+# Icinga2 satellite zone
+ic2_zone: satellite
+
 # /etc/icinga2/icinga2.conf
 ic2_cfg_content: |
   include "constants.conf"

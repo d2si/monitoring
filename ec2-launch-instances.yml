@@ -31,7 +31,23 @@
         assign_public_ip: yes
         region: eu-west-1
         instance_tags:
-            Role: ic2sat
+            Role: ic2sat1
+            Name: Icinga2Satellite
+
+    - ec2:
+        aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+        aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+        key_name: aws-dev
+        instance_type: t2.small
+        image: ami-e31a6594
+        wait: no
+        group: epiconcept
+        count: 1
+        vpc_subnet_id: subnet-68a77031
+        assign_public_ip: yes
+        region: eu-west-1
+        instance_tags:
+            Role: ic2sat2
             Name: Icinga2Satellite
 
     - ec2:
@@ -43,10 +59,27 @@
         wait: no
         groups:
             - epiconcept
-        count: 3
+        count: 1
         vpc_subnet_id: subnet-68a77031
         assign_public_ip: yes
         region: eu-west-1
         instance_tags:
-            Role: ic2node
+            Role: ic2node1
+            Name: Icinga2Agent
+
+    - ec2:
+        aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+        aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+        key_name: aws-dev
+        instance_type: t2.micro
+        image: ami-e31a6594
+        wait: no
+        groups:
+            - epiconcept
+        count: 1
+        vpc_subnet_id: subnet-68a77031
+        assign_public_ip: yes
+        region: eu-west-1
+        instance_tags:
+            Role: ic2node2
             Name: Icinga2Agent
