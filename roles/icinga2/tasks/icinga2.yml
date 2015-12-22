@@ -2,7 +2,6 @@
 
 - name:
   set_fact: is_master=True
-  with_items: groups['ic2master']
   when: hostvars[groups['ic2master'][0]]['ansible_fqdn'] == ansible_fqdn
 
 - name: Install the Icinga2 packages
